@@ -9,9 +9,7 @@
       @click="handleSelect(option.value)"
     >
       <div class="art-settings-panel__trans-preview">
-        <div class="art-settings-panel__trans-chrome">
-          <span /><span /><span />
-        </div>
+        <div class="art-settings-panel__trans-chrome"> <span /><span /><span /> </div>
         <div
           class="art-settings-panel__trans-page"
           :class="{ 'is-demo': demoValue === option.value }"

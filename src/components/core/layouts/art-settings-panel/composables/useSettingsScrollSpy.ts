@@ -18,9 +18,7 @@ export function useSettingsScrollSpy(scrollEl: Ref<HTMLElement | null>) {
     observer = new IntersectionObserver(
       (entries) => {
         // 取所有当前可见的 section，选 offsetTop 最小的（最靠上）
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .map((e) => e.target as HTMLElement)
+        const visible = entries.filter((e) => e.isIntersecting).map((e) => e.target as HTMLElement)
 
         if (visible.length > 0) {
           visible.sort((a, b) => a.offsetTop - b.offsetTop)

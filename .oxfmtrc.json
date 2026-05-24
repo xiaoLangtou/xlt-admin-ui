@@ -18,9 +18,5 @@
   "htmlWhitespaceSensitivity": "strict",
   "rangeStart": 0,
   "sortPackageJson": false,
-  "ignorePatterns": [
-    "/node_modules/*",
-    "/dist/*",
-    "/src/main.ts"
-  ]
+  "ignorePatterns": ["/node_modules/*", "/dist/*", "/src/main.ts"]
 }

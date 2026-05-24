@@ -11,10 +11,7 @@ import { ApiStatus } from '@/utils/http/status'
 function isNonRetryableError(error: unknown): boolean {
   if (!(error instanceof HttpError)) return false
 
-  return (
-    error.code === ApiStatus.unauthorized ||
-    (error.code >= 400 && error.code < 500)
-  )
+  return error.code === ApiStatus.unauthorized || (error.code >= 400 && error.code < 500)
 }
 
 /** 创建 QueryClient 实例 */

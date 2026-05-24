@@ -17,7 +17,10 @@
         />
       </PrefRow>
 
-      <PrefRow :label="$t('setting.cards.tabStyle.title')" :desc="$t('setting.rows.tabAppearance.desc')">
+      <PrefRow
+        :label="$t('setting.cards.tabStyle.title')"
+        :desc="$t('setting.rows.tabAppearance.desc')"
+      >
         <SegmentedControl
           :model-value="tabStyle"
           :options="tabSegmentOptions"

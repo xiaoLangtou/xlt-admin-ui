@@ -29,12 +29,12 @@
 - **路径**：`/auth/login`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| username | string | 是 | 用户名 |
-| password | string | 是 | 密码 |
-| captcha | string | 否 | 验证码 |
-| captchaId | string | 否 | 验证码 ID |
+| 字段      | 类型   | 必填 | 说明      |
+| --------- | ------ | ---- | --------- |
+| username  | string | 是   | 用户名    |
+| password  | string | 是   | 密码      |
+| captcha   | string | 否   | 验证码    |
+| captchaId | string | 否   | 验证码 ID |
 
 - **响应**：
 
@@ -92,7 +92,7 @@
 
 ```ts
 ServiceResult<{
-  captcha: string   // Base64 图片
+  captcha: string // Base64 图片
   captchaId: string // 验证码 ID
 }>
 ```
@@ -107,16 +107,16 @@ ServiceResult<{
 - **路径**：`/user/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| current | number | 否 | 页码 |
-| size | number | 否 | 每页数量 |
-| username | string | 否 | 用户名 |
-| deptId | string | 否 | 部门 ID |
-| nickname | string | 否 | 昵称 |
-| email | string | 否 | 邮箱 |
-| phone | string | 否 | 手机号 |
-| name | string | 否 | 姓名 |
+| 字段     | 类型   | 必填 | 说明     |
+| -------- | ------ | ---- | -------- |
+| current  | number | 否   | 页码     |
+| size     | number | 否   | 每页数量 |
+| username | string | 否   | 用户名   |
+| deptId   | string | 否   | 部门 ID  |
+| nickname | string | 否   | 昵称     |
+| email    | string | 否   | 邮箱     |
+| phone    | string | 否   | 手机号   |
+| name     | string | 否   | 姓名     |
 
 - **响应**：`ServiceResult<ResPage<IUser>>`
 
@@ -136,21 +136,21 @@ ServiceResult<{
 - **路径**：`/user/add`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| username | string | 否 | 用户名 |
-| deptId | string | 否 | 部门 ID |
-| post | number[] | 否 | 岗位 ID 列表 |
-| nickname | string | 否 | 昵称 |
-| email | string | 否 | 邮箱 |
-| phone | string | 否 | 手机号 |
-| name | string | 否 | 姓名 |
-| enName | string | 否 | 英文名 |
-| remark | string | 否 | 备注 |
-| roles | number[] | 否 | 角色 ID 列表 |
-| status | string | 否 | 状态 |
-| sex | string | 否 | 性别 |
-| jobNumber | string | 否 | 工号 |
+| 字段      | 类型     | 必填 | 说明         |
+| --------- | -------- | ---- | ------------ |
+| username  | string   | 否   | 用户名       |
+| deptId    | string   | 否   | 部门 ID      |
+| post      | number[] | 否   | 岗位 ID 列表 |
+| nickname  | string   | 否   | 昵称         |
+| email     | string   | 否   | 邮箱         |
+| phone     | string   | 否   | 手机号       |
+| name      | string   | 否   | 姓名         |
+| enName    | string   | 否   | 英文名       |
+| remark    | string   | 否   | 备注         |
+| roles     | number[] | 否   | 角色 ID 列表 |
+| status    | string   | 否   | 状态         |
+| sex       | string   | 否   | 性别         |
+| jobNumber | string   | 否   | 工号         |
 
 ---
 
@@ -176,10 +176,10 @@ ServiceResult<{
 - **路径**：`/user/status`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| id | number | 是 | 用户 ID |
-| status | string | 是 | 状态（NORMAL：正常，FROZEN：冻结） |
+| 字段   | 类型   | 必填 | 说明                               |
+| ------ | ------ | ---- | ---------------------------------- |
+| id     | number | 是   | 用户 ID                            |
+| status | string | 是   | 状态（NORMAL：正常，FROZEN：冻结） |
 
 ---
 
@@ -189,9 +189,9 @@ ServiceResult<{
 - **路径**：`/user/reset/password`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| ids | number[] | 是 | 用户 ID 列表 |
+| 字段 | 类型     | 必填 | 说明         |
+| ---- | -------- | ---- | ------------ |
+| ids  | number[] | 是   | 用户 ID 列表 |
 
 ---
 
@@ -201,16 +201,16 @@ ServiceResult<{
 - **路径**：`/user/role/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| roleId | number | 是 | 角色 ID |
-| current | number | 否 | 页码 |
-| size | number | 否 | 每页数量 |
-| username | string | 否 | 用户名 |
-| nickname | string | 否 | 昵称 |
-| email | string | 否 | 邮箱 |
-| phone | string | 否 | 手机号 |
-| status | string | 否 | 状态 |
+| 字段     | 类型   | 必填 | 说明     |
+| -------- | ------ | ---- | -------- |
+| roleId   | number | 是   | 角色 ID  |
+| current  | number | 否   | 页码     |
+| size     | number | 否   | 每页数量 |
+| username | string | 否   | 用户名   |
+| nickname | string | 否   | 昵称     |
+| email    | string | 否   | 邮箱     |
+| phone    | string | 否   | 手机号   |
+| status   | string | 否   | 状态     |
 
 ---
 
@@ -230,12 +230,12 @@ ServiceResult<{
 - **路径**：`/dept/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| name | string | 否 | 部门名称 |
-| code | string | 否 | 部门编码 |
-| pid | number | 否 | 父级 ID |
-| status | number | 否 | 状态 |
+| 字段   | 类型   | 必填 | 说明     |
+| ------ | ------ | ---- | -------- |
+| name   | string | 否   | 部门名称 |
+| code   | string | 否   | 部门编码 |
+| pid    | number | 否   | 父级 ID  |
+| status | number | 否   | 状态     |
 
 - **响应**：`ServiceResult<ResPage<IDept>>`
 
@@ -263,20 +263,20 @@ ServiceResult<{
 - **路径**：`/dept/add`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| deptCode | string | 是 | 部门编码 |
-| deptName | string | 是 | 部门名称 |
-| deptType | string | 是 | 部门类型 |
-| fullName | string | 是 | 全称 |
-| orderNum | number | 是 | 排序 |
-| parentId | number | 是 | 父级 ID |
-| address | string | 否 | 地址 |
-| email | string | 否 | 邮箱 |
-| leader | string | 否 | 负责人 |
-| phone | string | 否 | 电话 |
-| postalCode | string | 否 | 邮编 |
-| remark | string | 否 | 备注 |
+| 字段       | 类型   | 必填 | 说明     |
+| ---------- | ------ | ---- | -------- |
+| deptCode   | string | 是   | 部门编码 |
+| deptName   | string | 是   | 部门名称 |
+| deptType   | string | 是   | 部门类型 |
+| fullName   | string | 是   | 全称     |
+| orderNum   | number | 是   | 排序     |
+| parentId   | number | 是   | 父级 ID  |
+| address    | string | 否   | 地址     |
+| email      | string | 否   | 邮箱     |
+| leader     | string | 否   | 负责人   |
+| phone      | string | 否   | 电话     |
+| postalCode | string | 否   | 邮编     |
+| remark     | string | 否   | 备注     |
 
 ---
 
@@ -302,10 +302,10 @@ ServiceResult<{
 - **路径**：`/dept/change-status`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| id | number | 是 | 部门 ID |
-| status | number | 是 | 状态 |
+| 字段   | 类型   | 必填 | 说明    |
+| ------ | ------ | ---- | ------- |
+| id     | number | 是   | 部门 ID |
+| status | number | 是   | 状态    |
 
 ---
 
@@ -324,15 +324,15 @@ ServiceResult<{
 - **路径**：`/role/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| current | number | 否 | 页码 |
-| size | number | 否 | 每页数量 |
-| roleName | string | 否 | 角色名称 |
-| roleCode | string | 否 | 角色编码 |
-| isEnable | number\|string | 否 | 状态 |
-| startTime | string | 否 | 创建时间起 |
-| endTime | string | 否 | 创建时间止 |
+| 字段      | 类型           | 必填 | 说明       |
+| --------- | -------------- | ---- | ---------- |
+| current   | number         | 否   | 页码       |
+| size      | number         | 否   | 每页数量   |
+| roleName  | string         | 否   | 角色名称   |
+| roleCode  | string         | 否   | 角色编码   |
+| isEnable  | number\|string | 否   | 状态       |
+| startTime | string         | 否   | 创建时间起 |
+| endTime   | string         | 否   | 创建时间止 |
 
 - **响应**：`ServiceResult<ResPage<IRole>>`
 
@@ -353,12 +353,12 @@ ServiceResult<{
 - **路径**：`/role/add`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| roleName | string | 否 | 角色名称 |
-| roleCode | string | 否 | 角色编码 |
-| description | string | 否 | 角色描述 |
-| sortOrder | number | 否 | 排序 |
+| 字段        | 类型   | 必填 | 说明     |
+| ----------- | ------ | ---- | -------- |
+| roleName    | string | 否   | 角色名称 |
+| roleCode    | string | 否   | 角色编码 |
+| description | string | 否   | 角色描述 |
+| sortOrder   | number | 否   | 排序     |
 
 ---
 
@@ -384,10 +384,10 @@ ServiceResult<{
 - **路径**：`/role/changeStatus`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| roleId | number | 是 | 角色 ID |
-| isEnable | number | 是 | 状态 |
+| 字段     | 类型   | 必填 | 说明    |
+| -------- | ------ | ---- | ------- |
+| roleId   | number | 是   | 角色 ID |
+| isEnable | number | 是   | 状态    |
 
 ---
 
@@ -397,11 +397,11 @@ ServiceResult<{
 - **路径**：`/role/changeMenu`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| id | number | 是 | 角色 ID |
-| menus | number[] | 否 | 菜单 ID 列表 |
-| buttons | number[] | 否 | 按钮 ID 列表 |
+| 字段    | 类型     | 必填 | 说明         |
+| ------- | -------- | ---- | ------------ |
+| id      | number   | 是   | 角色 ID      |
+| menus   | number[] | 否   | 菜单 ID 列表 |
+| buttons | number[] | 否   | 按钮 ID 列表 |
 
 ---
 
@@ -411,10 +411,10 @@ ServiceResult<{
 - **路径**：`/role/add/users`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| roleId | number | 是 | 角色 ID |
-| users | number[] | 是 | 用户 ID 列表 |
+| 字段   | 类型     | 必填 | 说明         |
+| ------ | -------- | ---- | ------------ |
+| roleId | number   | 是   | 角色 ID      |
+| users  | number[] | 是   | 用户 ID 列表 |
 
 ---
 
@@ -434,9 +434,9 @@ ServiceResult<{
 - **路径**：`/menu/tree`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| name | string | 否 | 菜单名称 |
+| 字段 | 类型   | 必填 | 说明     |
+| ---- | ------ | ---- | -------- |
+| name | string | 否   | 菜单名称 |
 
 ---
 
@@ -455,21 +455,21 @@ ServiceResult<{
 - **路径**：`/menu/create`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| parentId | number | 是 | 父级菜单 ID |
-| name | string | 是 | 菜单名称 |
-| menuType | number | 是 | 菜单类型 |
-| sortOrder | number | 是 | 排序 |
-| path | string | 否 | 路由路径 |
-| component | string | 否 | 组件路径 |
-| icon | string | 否 | 图标 |
-| isKeepAlive | string | 否 | 是否缓存 |
-| isHide | string | 否 | 是否隐藏 |
-| isIframe | string | 否 | 是否内嵌 |
-| permission | string | 否 | 权限标识 |
-| enName | string | 否 | 英文名 |
-| buttons | IButtonItem[] | 否 | 按钮列表 |
+| 字段        | 类型          | 必填 | 说明        |
+| ----------- | ------------- | ---- | ----------- |
+| parentId    | number        | 是   | 父级菜单 ID |
+| name        | string        | 是   | 菜单名称    |
+| menuType    | number        | 是   | 菜单类型    |
+| sortOrder   | number        | 是   | 排序        |
+| path        | string        | 否   | 路由路径    |
+| component   | string        | 否   | 组件路径    |
+| icon        | string        | 否   | 图标        |
+| isKeepAlive | string        | 否   | 是否缓存    |
+| isHide      | string        | 否   | 是否隐藏    |
+| isIframe    | string        | 否   | 是否内嵌    |
+| permission  | string        | 否   | 权限标识    |
+| enName      | string        | 否   | 英文名      |
+| buttons     | IButtonItem[] | 否   | 按钮列表    |
 
 ---
 
@@ -497,9 +497,9 @@ ServiceResult<{
 - **路径**：`/dict/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| name | string | 否 | 字典名称或编码 |
+| 字段 | 类型   | 必填 | 说明           |
+| ---- | ------ | ---- | -------------- |
+| name | string | 否   | 字典名称或编码 |
 
 - **响应**：`ServiceResult<IDictType[]>`
 
@@ -520,12 +520,12 @@ ServiceResult<{
 - **路径**：`/dict/add`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| dictName | string | 是 | 字典名称 |
-| dictCode | string | 是 | 字典编码 |
-| systemFlag | string | 是 | 系统标识 |
-| dictDesc | string | 否 | 字典描述 |
+| 字段       | 类型   | 必填 | 说明     |
+| ---------- | ------ | ---- | -------- |
+| dictName   | string | 是   | 字典名称 |
+| dictCode   | string | 是   | 字典编码 |
+| systemFlag | string | 是   | 系统标识 |
+| dictDesc   | string | 否   | 字典描述 |
 
 ---
 
@@ -551,11 +551,11 @@ ServiceResult<{
 - **路径**：`/dict/data/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| typeId | number | 是 | 字典类型 ID |
-| current | number | 否 | 页码 |
-| size | number | 否 | 每页数量 |
+| 字段    | 类型   | 必填 | 说明        |
+| ------- | ------ | ---- | ----------- |
+| typeId  | number | 是   | 字典类型 ID |
+| current | number | 否   | 页码        |
+| size    | number | 否   | 每页数量    |
 
 - **响应**：`ServiceResult<ResPage<IDictData>>`
 
@@ -576,9 +576,9 @@ ServiceResult<{
 - **路径**：`/dict/data/type-detail`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| type | string | 是 | 字典类型编码 |
+| 字段 | 类型   | 必填 | 说明         |
+| ---- | ------ | ---- | ------------ |
+| type | string | 是   | 字典类型编码 |
 
 - **响应**：`ServiceResult<ResPage<IDictData>>`
 
@@ -590,13 +590,13 @@ ServiceResult<{
 - **路径**：`/dict/data/add`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| dictValue | string | 是 | 字典值 |
-| dictLabel | string | 是 | 字典标签 |
-| dictTypeId | number | 是 | 字典类型 ID |
-| dictRemark | string | 否 | 备注 |
-| dictSort | number | 否 | 排序 |
+| 字段       | 类型   | 必填 | 说明        |
+| ---------- | ------ | ---- | ----------- |
+| dictValue  | string | 是   | 字典值      |
+| dictLabel  | string | 是   | 字典标签    |
+| dictTypeId | number | 是   | 字典类型 ID |
+| dictRemark | string | 否   | 备注        |
+| dictSort   | number | 否   | 排序        |
 
 ---
 
@@ -624,13 +624,13 @@ ServiceResult<{
 - **路径**：`/post/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| current | number | 否 | 页码 |
-| size | number | 否 | 每页数量 |
-| name | string | 否 | 岗位名称 |
-| code | string | 否 | 岗位编码 |
-| status | number\|string | 否 | 状态 |
+| 字段    | 类型           | 必填 | 说明     |
+| ------- | -------------- | ---- | -------- |
+| current | number         | 否   | 页码     |
+| size    | number         | 否   | 每页数量 |
+| name    | string         | 否   | 岗位名称 |
+| code    | string         | 否   | 岗位编码 |
+| status  | number\|string | 否   | 状态     |
 
 - **响应**：`ServiceResult<ResPage<IPost>>`
 
@@ -651,13 +651,13 @@ ServiceResult<{
 - **路径**：`/post/add`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| name | string | 否 | 岗位名称 |
-| code | string | 否 | 岗位编码 |
-| status | number\|string | 否 | 状态 |
-| description | string | 否 | 描述 |
-| sortOrder | number | 否 | 排序 |
+| 字段        | 类型           | 必填 | 说明     |
+| ----------- | -------------- | ---- | -------- |
+| name        | string         | 否   | 岗位名称 |
+| code        | string         | 否   | 岗位编码 |
+| status      | number\|string | 否   | 状态     |
+| description | string         | 否   | 描述     |
+| sortOrder   | number         | 否   | 排序     |
 
 ---
 
@@ -683,10 +683,10 @@ ServiceResult<{
 - **路径**：`/post/status`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| id | number\|string | 是 | 岗位 ID |
-| status | number | 是 | 状态 |
+| 字段   | 类型           | 必填 | 说明    |
+| ------ | -------------- | ---- | ------- |
+| id     | number\|string | 是   | 岗位 ID |
+| status | number         | 是   | 状态    |
 
 ---
 
@@ -749,12 +749,12 @@ ServiceResult<{
 - **路径**：`/api/add`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| path | string | 否 | 接口路径 |
-| description | string | 否 | 描述 |
-| method | HTTP_METHOD | 否 | 请求方法 |
-| apiGroup | string | 否 | 所属分组 |
+| 字段        | 类型        | 必填 | 说明     |
+| ----------- | ----------- | ---- | -------- |
+| path        | string      | 否   | 接口路径 |
+| description | string      | 否   | 描述     |
+| method      | HTTP_METHOD | 否   | 请求方法 |
+| apiGroup    | string      | 否   | 所属分组 |
 
 ---
 
@@ -805,9 +805,9 @@ ServiceResult<{
 - **路径**：`/casbin/permission-list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| code | string | 是 | 角色编码 |
+| 字段 | 类型   | 必填 | 说明     |
+| ---- | ------ | ---- | -------- |
+| code | string | 是   | 角色编码 |
 
 ---
 
@@ -817,10 +817,10 @@ ServiceResult<{
 - **路径**：`/casbin/update-role-permission`
 - **请求体**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| roleCode | string | 是 | 角色编码 |
-| apis | any[] | 是 | 权限列表 |
+| 字段     | 类型   | 必填 | 说明     |
+| -------- | ------ | ---- | -------- |
+| roleCode | string | 是   | 角色编码 |
+| apis     | any[]  | 是   | 权限列表 |
 
 ---
 
@@ -832,13 +832,13 @@ ServiceResult<{
 - **路径**：`/logger/list`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| current | number | 否 | 页码 |
-| size | number | 否 | 每页数量 |
-| startTime | string | 否 | 开始时间 |
-| endTime | string | 否 | 结束时间 |
-| createBy | string | 否 | 操作人 |
+| 字段      | 类型   | 必填 | 说明     |
+| --------- | ------ | ---- | -------- |
+| current   | number | 否   | 页码     |
+| size      | number | 否   | 每页数量 |
+| startTime | string | 否   | 开始时间 |
+| endTime   | string | 否   | 结束时间 |
+| createBy  | string | 否   | 操作人   |
 
 - **响应**：`ServiceResult<ResPage<ILogs>>`
 
@@ -850,9 +850,9 @@ ServiceResult<{
 - **路径**：`/logger/detail?id={id}`
 - **请求参数**：
 
-| 字段 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| id | number | 是 | 日志 ID |
+| 字段 | 类型   | 必填 | 说明    |
+| ---- | ------ | ---- | ------- |
+| id   | number | 是   | 日志 ID |
 
 - **响应**：`ServiceResult<ILogs>`，字段包含：请求路径、请求方法、请求参数、请求 IP、请求耗时、浏览器类型、操作系统、所属模块、响应体等。
 

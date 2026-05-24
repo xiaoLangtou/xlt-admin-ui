@@ -9,13 +9,17 @@
       <AuthTopBar />
 
       <!-- 移动端顶部渐变色条 -->
-      <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[var(--el-color-primary)] to-[var(--el-color-primary-light-3)] lg:hidden" />
+      <div
+        class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[var(--el-color-primary)] to-[var(--el-color-primary-light-3)] lg:hidden"
+      />
 
       <div class="auth-right-wrap">
         <div class="form">
           <!-- Logo + 标题区 -->
           <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[var(--el-color-primary-light-9)] mb-5">
+            <div
+              class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[var(--el-color-primary-light-9)] mb-5"
+            >
               <ArtLogo size="36" />
             </div>
             <h3 class="title">{{ $t('login.title') }}</h3>
@@ -123,8 +127,6 @@
                 {{ $t('login.btnText') }}
               </ElButton>
             </div>
-
-          
           </ElForm>
         </div>
       </div>

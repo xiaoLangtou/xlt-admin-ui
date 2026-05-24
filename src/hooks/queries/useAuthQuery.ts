@@ -6,12 +6,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { MaybeRef } from 'vue'
 import { unref } from 'vue'
-import {
-  fetchCaptcha,
-  fetchGetUserInfo,
-  fetchLogin,
-  fetchLogout
-} from '@/api/auth'
+import { fetchCaptcha, fetchGetUserInfo, fetchLogin, fetchLogout } from '@/api/auth'
 import { queryKeys } from '@/utils/query'
 
 /** 获取图片验证码 */

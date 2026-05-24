@@ -1,6 +1,11 @@
 <!-- 图标组件 -->
 <template>
-  <Icon v-if="normalizedIcon" :icon="normalizedIcon" v-bind="bindAttrs" class="art-svg-icon inline" />
+  <Icon
+    v-if="normalizedIcon"
+    :icon="normalizedIcon"
+    v-bind="bindAttrs"
+    class="art-svg-icon inline"
+  />
 </template>
 
 <script setup lang="ts">

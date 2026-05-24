@@ -261,7 +261,7 @@
    * @param obj 要克隆的对象
    * @returns 克隆后的对象
    */
-  const deepClone = <T,>(obj: T): T => {
+  const deepClone = <T>(obj: T): T => {
     if (obj === null || typeof obj !== 'object') return obj
     if (obj instanceof Date) return new Date(obj) as T
     if (Array.isArray(obj)) return obj.map((item) => deepClone(item)) as T

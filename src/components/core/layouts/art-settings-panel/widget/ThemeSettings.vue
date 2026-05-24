@@ -1,10 +1,6 @@
 <template>
   <div class="pref-panel">
-    <PrefGroup
-      :title="$t('setting.theme.title')"
-      :desc="$t('setting.rows.displayMode.desc')"
-      flush
-    >
+    <PrefGroup :title="$t('setting.theme.title')" :desc="$t('setting.rows.displayMode.desc')" flush>
       <ThemeModePicker
         :model-value="systemThemeMode"
         :options="themeOptions"

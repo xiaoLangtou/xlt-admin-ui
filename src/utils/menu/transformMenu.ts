@@ -17,9 +17,7 @@ function parseBool(value?: string | boolean): boolean {
 
 function isExternalPath(path: string): boolean {
   return (
-    path.startsWith('http://') ||
-    path.startsWith('https://') ||
-    path.startsWith('/outside/iframe/')
+    path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/outside/iframe/')
   )
 }
 

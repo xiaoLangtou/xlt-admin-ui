@@ -136,8 +136,12 @@
             <div class="sp-card__body">
               <div class="sp-form-row sp-form-row--top">
                 <div class="sp-form-row__info">
-                  <span class="sp-form-row__label">{{ $t('setting.rows.menuAppearance.label') }}</span>
-                  <span class="sp-form-row__desc">{{ $t('setting.rows.menuAppearance.desc') }}</span>
+                  <span class="sp-form-row__label">{{
+                    $t('setting.rows.menuAppearance.label')
+                  }}</span>
+                  <span class="sp-form-row__desc">{{
+                    $t('setting.rows.menuAppearance.desc')
+                  }}</span>
                 </div>
                 <div class="sp-pill-grid">
                   <button
@@ -393,12 +397,8 @@
                     @click="basicHandlers.pageTransition(opt.value)"
                   >
                     <div class="sp-anim-card__preview">
-                      <div class="sp-anim-card__chrome">
-                        <span /><span /><span />
-                      </div>
-                      <div class="sp-anim-card__page">
-                        <i /><i /><i />
-                      </div>
+                      <div class="sp-anim-card__chrome"> <span /><span /><span /> </div>
+                      <div class="sp-anim-card__page"> <i /><i /><i /> </div>
                     </div>
                     <div class="sp-anim-card__meta">
                       <ArtSvgIcon :icon="opt.icon" class="sp-anim-card__icon" />
@@ -426,9 +426,7 @@
                   <span class="sp-form-row__label">{{
                     $t('setting.cards.borderRadius.title')
                   }}</span>
-                  <span class="sp-form-row__desc">{{
-                    $t('setting.rows.radiusFactor.desc')
-                  }}</span>
+                  <span class="sp-form-row__desc">{{ $t('setting.rows.radiusFactor.desc') }}</span>
                 </div>
                 <div class="sp-pill-grid sp-pill-grid--radius">
                   <button
@@ -550,11 +548,11 @@
 
   // ─── 圆角选项 ───────────────────────────────────────────────────────────────
   const radiusOptions = computed(() => [
-    { value: '0',    label: '0',    preview: '0px' },
+    { value: '0', label: '0', preview: '0px' },
     { value: '0.25', label: '0.25', preview: '4px' },
-    { value: '0.5',  label: '0.5',  preview: '8px' },
+    { value: '0.5', label: '0.5', preview: '8px' },
     { value: '0.75', label: '0.75', preview: '14px' },
-    { value: '1',    label: '1',    preview: '22px' }
+    { value: '1', label: '1', preview: '22px' }
   ])
 
   // ─── 功能开关 ───────────────────────────────────────────────────────────────

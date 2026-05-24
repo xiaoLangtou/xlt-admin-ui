@@ -230,8 +230,7 @@ export function useSettingsConfig() {
 
   const toggleGroups = computed(() => {
     const allSettings = toggleSettingsConfig.value
-    const pick = (keys: string[]) =>
-      allSettings.filter((setting) => keys.includes(setting.key))
+    const pick = (keys: string[]) => allSettings.filter((setting) => keys.includes(setting.key))
 
     return [
       {

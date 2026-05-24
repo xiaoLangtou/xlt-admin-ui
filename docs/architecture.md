@@ -8,19 +8,19 @@
 
 **Art Design Pro** 是一个基于 Vue 3 + TypeScript 的中后台管理系统框架，提供完整的布局、权限、主题、国际化等基础能力，同时内置丰富的业务组件和页面示例。
 
-| 维度 | 说明 |
-|------|------|
-| 框架 | Vue 3.5 + TypeScript 5.6 |
-| 构建工具 | Vite 7 |
-| UI 库 | Element Plus 2.11 |
-| 状态管理 | Pinia 3（持久化：pinia-plugin-persistedstate） |
-| 路由 | Vue Router 4（Hash 模式） |
-| HTTP | Axios（自封装） |
-| 样式 | SCSS + Tailwind CSS 4 |
-| 国际化 | vue-i18n 9（中文 / 英文） |
-| 图表 | ECharts 6 |
-| 包管理 | pnpm ≥ 8.8 |
-| Node 版本 | ≥ 20.19 |
+| 维度      | 说明                                           |
+| --------- | ---------------------------------------------- |
+| 框架      | Vue 3.5 + TypeScript 5.6                       |
+| 构建工具  | Vite 7                                         |
+| UI 库     | Element Plus 2.11                              |
+| 状态管理  | Pinia 3（持久化：pinia-plugin-persistedstate） |
+| 路由      | Vue Router 4（Hash 模式）                      |
+| HTTP      | Axios（自封装）                                |
+| 样式      | SCSS + Tailwind CSS 4                          |
+| 国际化    | vue-i18n 9（中文 / 英文）                      |
+| 图表      | ECharts 6                                      |
+| 包管理    | pnpm ≥ 8.8                                     |
+| Node 版本 | ≥ 20.19                                        |
 
 ---
 
@@ -132,16 +132,16 @@ router/
 
 路由 `meta` 字段说明：
 
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `title` | string | 页面标题（i18n key） |
-| `icon` | string | 菜单图标（Iconify） |
-| `roles` | string[] | 可访问的角色列表 |
-| `authList` | object[] | 按钮级权限列表 |
-| `keepAlive` | boolean | 是否缓存组件 |
-| `isHide` | boolean | 是否在菜单中隐藏 |
-| `isHideTab` | boolean | 是否在 WorkTab 中隐藏 |
-| `fixedTab` | boolean | 是否固定在 WorkTab 中 |
+| 字段        | 类型     | 说明                  |
+| ----------- | -------- | --------------------- |
+| `title`     | string   | 页面标题（i18n key）  |
+| `icon`      | string   | 菜单图标（Iconify）   |
+| `roles`     | string[] | 可访问的角色列表      |
+| `authList`  | object[] | 按钮级权限列表        |
+| `keepAlive` | boolean  | 是否缓存组件          |
+| `isHide`    | boolean  | 是否在菜单中隐藏      |
+| `isHideTab` | boolean  | 是否在 WorkTab 中隐藏 |
+| `fixedTab`  | boolean  | 是否固定在 WorkTab 中 |
 
 ---
 
@@ -161,6 +161,7 @@ store/
 ```
 
 **settingStore** 是配置中心，管理：
+
 - 菜单类型（LEFT / TOP / TOP_LEFT / DUAL_MENU）
 - 系统主题（LIGHT / DARK / AUTO）
 - 菜单主题（DESIGN / LIGHT / DARK）
@@ -177,7 +178,7 @@ store/
 #### `core/`（基础/框架组件）
 
 | 分类 | 组件 | 说明 |
-|------|------|------|
+| --- | --- | --- |
 | **banners** | `art-basic-banner`, `art-card-banner` | 页面横幅 |
 | **base** | `art-logo`, `art-svg-icon`, `art-back-to-top` | 基础 UI |
 | **cards** | `art-stats-card`, `art-bar-chart-card`, `art-line-chart-card`, `art-donut-chart-card`, `art-progress-card`, `art-image-card`, `art-data-list-card`, `art-timeline-list-card` | 数据卡片 |
@@ -194,28 +195,28 @@ store/
 
 #### 布局组件（`core/layouts/`）
 
-| 组件 | 说明 |
-|------|------|
-| `art-header-bar` | 顶部导航栏（含用户菜单） |
-| `art-sidebar-menu` | 左侧菜单（含子菜单） |
-| `art-horizontal-menu` | 顶部水平菜单 |
-| `art-mixed-menu` | 混合菜单（顶部+侧边） |
-| `art-breadcrumb` | 面包屑导航 |
-| `art-work-tab` | 多标签页（WorkTab） |
-| `art-page-content` | 页面内容容器（含 keep-alive） |
-| `art-settings-panel` | 系统设置抽屉（含多组 composables） |
-| `art-global-component` | 全局组件容器（锁屏、水印等） |
-| `art-global-search` | 全局搜索 |
-| `art-fast-enter` | 快速入口 |
-| `art-notification` | 通知中心 |
-| `art-screen-lock` | 锁屏组件 |
-| `art-chat-window` | 聊天窗口 |
-| `art-fireworks-effect` | 节日烟花特效 |
+| 组件                   | 说明                               |
+| ---------------------- | ---------------------------------- |
+| `art-header-bar`       | 顶部导航栏（含用户菜单）           |
+| `art-sidebar-menu`     | 左侧菜单（含子菜单）               |
+| `art-horizontal-menu`  | 顶部水平菜单                       |
+| `art-mixed-menu`       | 混合菜单（顶部+侧边）              |
+| `art-breadcrumb`       | 面包屑导航                         |
+| `art-work-tab`         | 多标签页（WorkTab）                |
+| `art-page-content`     | 页面内容容器（含 keep-alive）      |
+| `art-settings-panel`   | 系统设置抽屉（含多组 composables） |
+| `art-global-component` | 全局组件容器（锁屏、水印等）       |
+| `art-global-search`    | 全局搜索                           |
+| `art-fast-enter`       | 快速入口                           |
+| `art-notification`     | 通知中心                           |
+| `art-screen-lock`      | 锁屏组件                           |
+| `art-chat-window`      | 聊天窗口                           |
+| `art-fireworks-effect` | 节日烟花特效                       |
 
 #### `business/`（业务组件）
 
-| 组件 | 说明 |
-|------|------|
+| 组件             | 说明                       |
+| ---------------- | -------------------------- |
 | `comment-widget` | 评论组件（含 CommentItem） |
 
 ---
@@ -263,6 +264,7 @@ api/
 ```
 
 底层基于 `src/utils/http/index.ts`（Axios 封装）：
+
 - 请求拦截：自动注入 `Authorization: accessToken`
 - 响应拦截：统一处理业务状态码（200 = 成功，401 = 自动登出）
 - 防抖：401 错误在 3 秒内只提示一次
@@ -313,19 +315,19 @@ utils/
 
 ### 3.8 自定义指令（`src/directives/`）
 
-| 指令 | 文件 | 说明 |
-|------|------|------|
-| `v-auth` | `core/auth.ts` | 按钮级权限（authMark 匹配） |
-| `v-roles` | `core/roles.ts` | 角色级权限 |
-| `v-highlight` | `business/highlight.ts` | 代码高亮 |
-| `v-ripple` | `business/ripple.ts` | 水波纹效果 |
+| 指令          | 文件                    | 说明                        |
+| ------------- | ----------------------- | --------------------------- |
+| `v-auth`      | `core/auth.ts`          | 按钮级权限（authMark 匹配） |
+| `v-roles`     | `core/roles.ts`         | 角色级权限                  |
+| `v-highlight` | `business/highlight.ts` | 代码高亮                    |
+| `v-ripple`    | `business/ripple.ts`    | 水波纹效果                  |
 
 ---
 
 ### 3.9 Hooks（`src/hooks/core/`）
 
 | Hook | 说明 |
-|------|------|
+| --- | --- |
 | `useTheme` | 主题切换（亮/暗/自动），9 级颜色变体计算，VueUse `usePreferredDark` 响应系统偏好 |
 | `useAuth` | 权限校验辅助（按钮权限、角色判断） |
 | `useCommon` | 通用 store 状态快捷访问 |
@@ -358,14 +360,14 @@ config/
 
 ### 3.11 枚举（`src/enums/`）
 
-| 枚举 | 值 |
-|------|-----|
-| `MenuTypeEnum` | `left` / `top` / `top-left` / `dual-menu` |
-| `SystemThemeEnum` | `light` / `dark` / `auto` |
-| `MenuThemeEnum` | `design` / `light` / `dark` |
-| `LanguageEnum` | `zh` / `en` |
-| `ContainerWidthEnum` | `100%` / `1200px` |
-| `MenuWidth` | `64px`（收起宽度） |
+| 枚举                 | 值                                        |
+| -------------------- | ----------------------------------------- |
+| `MenuTypeEnum`       | `left` / `top` / `top-left` / `dual-menu` |
+| `SystemThemeEnum`    | `light` / `dark` / `auto`                 |
+| `MenuThemeEnum`      | `design` / `light` / `dark`               |
+| `LanguageEnum`       | `zh` / `en`                               |
+| `ContainerWidthEnum` | `100%` / `1200px`                         |
+| `MenuWidth`          | `64px`（收起宽度）                        |
 
 ---
 
@@ -421,6 +423,7 @@ AUTO   → 监听 prefers-color-scheme 媒体查询自动切换
 ```
 
 切换时：
+
 1. 临时注入 `* { transition: none !important }` 避免闪烁
 2. 修改 `<html>` class
 3. 动态生成 `--el-color-primary-light-1~9` CSS 变量（亮色/暗色变体）
@@ -471,21 +474,21 @@ Store（Pinia）← 响应式更新 → 组件自动重渲染
 
 ## 八、构建 & 工程化
 
-| 工具 | 用途 |
-|------|------|
-| Vite 7 | 开发服务器 + 生产构建 |
-| vue-tsc | TypeScript 类型检查 |
-| unplugin-auto-import | Vue / VueUse / Pinia 等 API 自动导入 |
-| unplugin-vue-components | 组件自动注册 |
-| unplugin-element-plus | Element Plus 按需引入 |
-| vite-plugin-compression | gzip 压缩 |
-| rollup-plugin-visualizer | 打包分析 |
-| terser | 代码压缩混淆 |
-| Oxlint + Oxfmt | 代码规范 |
-| Stylelint | 样式规范 |
-| Husky + lint-staged | Git Hooks 提交检查 |
-| commitizen + cz-git | 规范化提交信息 |
-| commitlint | 提交信息校验 |
+| 工具                     | 用途                                 |
+| ------------------------ | ------------------------------------ |
+| Vite 7                   | 开发服务器 + 生产构建                |
+| vue-tsc                  | TypeScript 类型检查                  |
+| unplugin-auto-import     | Vue / VueUse / Pinia 等 API 自动导入 |
+| unplugin-vue-components  | 组件自动注册                         |
+| unplugin-element-plus    | Element Plus 按需引入                |
+| vite-plugin-compression  | gzip 压缩                            |
+| rollup-plugin-visualizer | 打包分析                             |
+| terser                   | 代码压缩混淆                         |
+| Oxlint + Oxfmt           | 代码规范                             |
+| Stylelint                | 样式规范                             |
+| Husky + lint-staged      | Git Hooks 提交检查                   |
+| commitizen + cz-git      | 规范化提交信息                       |
+| commitlint               | 提交信息校验                         |
 
 构建命令：
 

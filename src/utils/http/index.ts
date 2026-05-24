@@ -38,7 +38,7 @@ interface ExtendedAxiosRequestConfig extends AxiosRequestConfig {
   showSuccessMessage?: boolean
 }
 
-const { VITE_API_URL, VITE_WITH_CREDENTIALS,VITE_API_PROXY_URL } = import.meta.env
+const { VITE_API_URL, VITE_WITH_CREDENTIALS, VITE_API_PROXY_URL } = import.meta.env
 
 /** Axios实例 */
 const axiosInstance = axios.create({

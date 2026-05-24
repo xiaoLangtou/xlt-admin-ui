@@ -18,7 +18,11 @@
       </div>
     </PrefGroup>
 
-    <PrefGroup :title="$t('setting.menu.title')" :desc="$t('setting.rows.menuAppearance.desc')" flush>
+    <PrefGroup
+      :title="$t('setting.menu.title')"
+      :desc="$t('setting.rows.menuAppearance.desc')"
+      flush
+    >
       <div class="pref-menu-grid">
         <div
           v-for="item in menuStyleOptions"

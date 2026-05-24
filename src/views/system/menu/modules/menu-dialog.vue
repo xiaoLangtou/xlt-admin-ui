@@ -190,7 +190,12 @@
           type: 'input',
           props: { placeholder: '如：/system/user 或留空' }
         },
-        { label: '图标', key: 'icon', type: 'input', props: { placeholder: '如：Lucide-Users 或 lucide:users' } },
+        {
+          label: '图标',
+          key: 'icon',
+          type: 'input',
+          props: { placeholder: '如：Lucide-Users 或 lucide:users' }
+        },
         {
           label: createLabelTooltip(
             '角色权限',
