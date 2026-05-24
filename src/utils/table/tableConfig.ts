@@ -40,7 +40,7 @@ export const tableConfig = {
   // 总条数
   totalFields: ['total', 'count'],
   // 嵌套分页对象
-  pagerFields: ['pager'],
+  pagerFields: ['pager', 'page'],
   // 当前页码
   currentFields: ['current', 'page', 'pageNum'],
   // 每页大小

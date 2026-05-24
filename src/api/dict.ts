@@ -1,8 +1,8 @@
 import request from '@/utils/http'
 
-/** 获取字典类型列表 */
-export function fetchGetDictTypeList(params?: { name?: string }) {
-  return request.get<Api.Dict.IDictType[]>({
+/** 获取字典类型列表（分页） */
+export function fetchGetDictTypeList(params?: Api.Dict.DictTypeSearchParams) {
+  return request.get<Api.Dict.DictTypeList>({
     url: '/dict/list',
     params
   })

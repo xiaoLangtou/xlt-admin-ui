@@ -6,7 +6,11 @@
       "Bash(npx vue-tsc:*)",
       "Bash(npx oxfmt:*)",
       "Bash(npx oxlint:*)",
-      "Bash(wait)"
+      "Bash(wait)",
+      "Bash(head -5 grep -rn \"art-table-card\\\\|art-full-height\" /Volumes/weipengcheng/个人项目/tva/art-design-pro/src/styles/)",
+      "Bash(head -5 grep -rh \"\\\\-\\\\-art-\\\\|\\\\-\\\\-default-\" /Volumes/weipengcheng/个人项目/tva/art-design-pro/src/assets/styles/core/el-light.scss)",
+      "Bash(sed -i '' 's/font-size: 11px;/font-size: 12px;/g' /Volumes/weipengcheng/个人项目/tva/art-design-pro/src/views/system/dict/index.vue)",
+      "Bash(__NEW_LINE_26a52ac7c3e291db__ sed:*)"
     ]
   }
 }

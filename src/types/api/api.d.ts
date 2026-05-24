@@ -27,12 +27,16 @@ declare namespace Api {
       current: number
       pageSize: number
       total: number
+      totalPage?: number
+      lastPage?: number
+      nextPage?: number
     }
 
     /** 分页响应（后端 ResPage 结构） */
     interface ResPage<T = unknown> {
       records: T[]
       pager?: Pager
+      page?: Pager
     }
 
     /** 分页响应（兼容扁平结构） */
@@ -346,6 +350,12 @@ declare namespace Api {
       dictCode?: string
       systemFlag?: string
       dictDesc?: string
+      status?: number | null
+      remark?: string | null
+      createBy?: string
+      updateBy?: string
+      createTime?: string
+      updateTime?: string | null
     }
 
     interface IDictData {
@@ -357,7 +367,12 @@ declare namespace Api {
       dictSort?: number
     }
 
+    type DictTypeList = Api.Common.ResPage<IDictType>
     type DictDataList = Api.Common.ResPage<IDictData>
+
+    interface DictTypeSearchParams extends Api.Common.CommonSearchParams {
+      name?: string
+    }
 
     interface DictTypeFormParams {
       id?: number
