@@ -33,7 +33,7 @@
  * ## 已定义的事件
  *
  * - triggerFireworks: 触发烟花效果（可选图片URL）
- * - openSetting: 打开设置面板
+ * - openSetting: 打开偏好设置页面
  * - openSearchDialog: 打开搜索对话框
  * - openChat: 打开聊天窗口
  * - openLockScreen: 打开锁屏
@@ -47,7 +47,7 @@ import mitt, { type Emitter } from 'mitt'
 type Events = {
   // 烟花效果事件 - 可选的图片URL参数
   triggerFireworks: string | undefined
-  // 打开设置面板事件 - 无参数
+  // 打开偏好设置页面事件 - 无参数
   openSetting: void
   // 打开搜索对话框事件 - 无参数
   openSearchDialog: void

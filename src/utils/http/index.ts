@@ -80,13 +80,25 @@ axiosInstance.interceptors.request.use(
   }
 )
 
+/** 判断业务响应是否成功 */
+function isBusinessSuccess(code: number) {
+  return code === ApiStatus.businessSuccess || code === ApiStatus.success
+}
+
+/** 提取响应消息（兼容 msg / message） */
+function getResponseMessage(data: BaseResponse) {
+  return data.msg || data.message || ''
+}
+
 /** 响应拦截器 */
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<BaseResponse>) => {
-    const { code, msg } = response.data
-    if (code === ApiStatus.success) return response
-    if (code === ApiStatus.unauthorized) handleUnauthorizedError(msg)
-    throw createHttpError(msg || $t('httpMsg.requestFailed'), code)
+    const { code } = response.data
+    const message = getResponseMessage(response.data)
+
+    if (isBusinessSuccess(code)) return response
+    if (code === ApiStatus.unauthorized) handleUnauthorizedError(message)
+    throw createHttpError(message || $t('httpMsg.requestFailed'), code)
   },
   (error) => {
     if (error.response?.status === ApiStatus.unauthorized) handleUnauthorizedError()
@@ -178,8 +190,9 @@ async function request<T = any>(config: ExtendedAxiosRequestConfig): Promise<T> 
     const res = await axiosInstance.request<BaseResponse<T>>(config)
 
     // 显示成功消息
-    if (config.showSuccessMessage && res.data.msg) {
-      showSuccess(res.data.msg)
+    if (config.showSuccessMessage) {
+      const message = getResponseMessage(res.data)
+      if (message) showSuccess(message)
     }
 
     return res.data.data as T

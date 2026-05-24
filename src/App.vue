@@ -8,10 +8,12 @@
     }"
   >
     <RouterView></RouterView>
+    <VueQueryDevtools v-if="isDev" />
   </ElConfigProvider>
 </template>
 
 <script setup lang="ts">
+  import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
   import { useUserStore } from './store/modules/user'
   import zh from 'element-plus/es/locale/lang/zh-cn'
   import en from 'element-plus/es/locale/lang/en'
@@ -20,6 +22,7 @@
   import { checkStorageCompatibility } from './utils/storage'
   import { initializeTheme } from './hooks/core/useTheme'
 
+  const isDev = import.meta.env.DEV
   const userStore = useUserStore()
   const { language } = storeToRefs(userStore)
 

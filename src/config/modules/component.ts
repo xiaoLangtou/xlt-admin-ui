@@ -25,7 +25,7 @@ export const globalComponentsConfig: GlobalComponentConfig[] = [
     name: '设置面板',
     key: 'settings-panel',
     component: defineAsyncComponent(
-      () => import('@/components/core/layouts/art-settings-panel/index.vue')
+      () => import('@/components/core/layouts/art-settings-panel/SettingsProvider.vue')
     ),
     enabled: true
   },

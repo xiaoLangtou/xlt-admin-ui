@@ -1,4 +1,5 @@
 import request from '@/utils/http'
+import { encryptPassword } from '@/utils/crypto'
 
 /** 将后端用户信息映射为前端格式 */
 function mapUserInfo(info: Api.Auth.IUserInfo): Api.Auth.UserInfo {
@@ -19,7 +20,10 @@ function mapUserInfo(info: Api.Auth.IUserInfo): Api.Auth.UserInfo {
 export function fetchLogin(params: Api.Auth.LoginParams) {
   return request.post<Api.Auth.LoginResponse>({
     url: '/auth/login',
-    params
+    params: {
+      ...params,
+      password: encryptPassword(params.password)
+    }
   })
 }
 

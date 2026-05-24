@@ -32,9 +32,9 @@ art-design-pro/
 ├── package.json
 ├── vite.config.ts              # Vite 配置
 ├── tsconfig.json
-├── eslint.config.mjs
+├── .oxlintrc.json
 ├── .stylelintrc.cjs
-├── .prettierrc
+├── .oxfmtrc.json
 ├── commitlint.config.cjs       # Git 提交规范
 ├── scripts/
 │   └── clean-dev.ts            # 清理脚本
@@ -481,7 +481,7 @@ Store（Pinia）← 响应式更新 → 组件自动重渲染
 | vite-plugin-compression | gzip 压缩 |
 | rollup-plugin-visualizer | 打包分析 |
 | terser | 代码压缩混淆 |
-| ESLint + Prettier | 代码规范 |
+| Oxlint + Oxfmt | 代码规范 |
 | Stylelint | 样式规范 |
 | Husky + lint-staged | Git Hooks 提交检查 |
 | commitizen + cz-git | 规范化提交信息 |

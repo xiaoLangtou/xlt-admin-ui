@@ -1,21 +1,18 @@
 <template>
-  <div class="setting-drawer">
-    <ElDrawer
-      size="300px"
-      v-model="visible"
-      :lock-scroll="true"
-      :with-header="false"
-      :before-close="handleClose"
-      :destroy-on-close="false"
-      modal-class="setting-modal"
-      @open="handleOpen"
-      @close="handleDrawerClose"
-    >
-      <div class="drawer-con">
-        <slot />
-      </div>
-    </ElDrawer>
-  </div>
+  <Teleport to="body">
+    <div class="art-settings-panel" :class="{ 'is-open': modelValue }">
+      <div class="art-settings-panel__overlay" @click="handleClose" />
+      <aside class="art-settings-panel__drawer" role="dialog" aria-modal="true">
+        <slot name="header" />
+        <div class="art-settings-panel__body">
+          <slot />
+        </div>
+        <div v-if="$slots.footer" class="art-settings-panel__foot">
+          <slot name="footer" />
+        </div>
+      </aside>
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -32,20 +29,15 @@
   const props = defineProps<Props>()
   const emit = defineEmits<Emits>()
 
-  const visible = computed({
-    get: () => props.modelValue,
-    set: (value: boolean) => emit('update:modelValue', value)
-  })
-
-  const handleOpen = () => {
-    emit('open')
-  }
-
-  const handleDrawerClose = () => {
-    emit('close')
-  }
+  watch(
+    () => props.modelValue,
+    (open, prev) => {
+      if (open && !prev) emit('open')
+      if (!open && prev) emit('close')
+    }
+  )
 
   const handleClose = () => {
-    visible.value = false
+    emit('update:modelValue', false)
   }
 </script>

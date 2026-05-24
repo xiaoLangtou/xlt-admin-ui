@@ -1,4 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -8,6 +10,8 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import tailwindcss from '@tailwindcss/vite'
 // import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -70,7 +74,22 @@ export default ({ mode }: { mode: string }) => {
       tailwindcss(),
       // 自动按需导入 API
       AutoImport({
-        imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
+        imports: [
+          'vue',
+          'vue-router',
+          'pinia',
+          '@vueuse/core',
+          {
+            '@tanstack/vue-query': [
+              'useQuery',
+              'useMutation',
+              'useQueryClient',
+              'useIsFetching',
+              'useIsMutating',
+              'useInfiniteQuery'
+            ]
+          }
+        ],
         dts: 'src/types/import/auto-imports.d.ts',
         resolvers: [ElementPlusResolver()],
         eslintrc: {
@@ -120,7 +139,8 @@ export default ({ mode }: { mode: string }) => {
         'vue-img-cutter',
         'element-plus/es',
         'element-plus/es/components/*/style/css',
-        'element-plus/es/components/*/style/index'
+        'element-plus/es/components/*/style/index',
+        '@tanstack/vue-query'
       ]
     },
     css: {

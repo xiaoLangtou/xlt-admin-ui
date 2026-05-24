@@ -10,9 +10,12 @@
     "dev": "vite --open",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "lint": "eslint",
-    "fix": "eslint --fix",
-    "lint:prettier": "prettier --write \"**/*.{js,cjs,ts,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint": "oxlint --vue-plugin",
+    "lint:fix": "oxlint --vue-plugin --fix",
+    "fix": "pnpm run lint:fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint:format": "oxfmt",
     "lint:stylelint": "stylelint  \"**/*.{css,scss,vue}\" --fix",
     "lint:lint-staged": "lint-staged",
     "prepare": "husky",
@@ -26,35 +29,36 @@
   },
   "lint-staged": {
     "*.{js,ts,mjs,mts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "oxlint --vue-plugin --fix --no-error-on-unmatched-pattern",
+      "oxfmt --no-error-on-unmatched-pattern"
     ],
     "*.{cjs,json,jsonc}": [
-      "prettier --write"
+      "oxfmt --no-error-on-unmatched-pattern"
     ],
     "*.vue": [
-      "eslint --fix",
+      "oxlint --vue-plugin --fix --no-error-on-unmatched-pattern",
       "stylelint --fix --allow-empty-input",
-      "prettier --write"
+      "oxfmt --no-error-on-unmatched-pattern"
     ],
     "*.{html,htm}": [
-      "prettier --write"
+      "oxfmt --no-error-on-unmatched-pattern"
     ],
     "*.{scss,css,less}": [
       "stylelint --fix --allow-empty-input",
-      "prettier --write"
+      "oxfmt --no-error-on-unmatched-pattern"
     ],
     "*.{md,mdx}": [
-      "prettier --write"
+      "oxfmt --no-error-on-unmatched-pattern"
     ],
     "*.{yaml,yml}": [
-      "prettier --write"
+      "oxfmt --no-error-on-unmatched-pattern"
     ]
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
     "@iconify/vue": "^5.0.0",
     "@tailwindcss/vite": "^4.1.14",
+    "@tanstack/vue-query": "^5.100.14",
     "@vue/reactivity": "^3.5.21",
     "@vueuse/core": "^13.9.0",
     "@wangeditor/editor": "^5.1.23",
@@ -82,22 +86,17 @@
   "devDependencies": {
     "@commitlint/cli": "^19.4.1",
     "@commitlint/config-conventional": "^19.4.1",
-    "@eslint/js": "^9.9.1",
+    "@iconify-json/lucide": "^1.2.109",
+    "@tanstack/vue-query-devtools": "^5.91.0",
     "@types/node": "^24.0.5",
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "@typescript-eslint/parser": "^8.3.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/compiler-sfc": "^3.0.5",
     "commitizen": "^4.3.0",
     "cz-git": "^1.11.1",
-    "eslint": "^9.9.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-vue": "^9.27.0",
-    "globals": "^15.9.0",
     "husky": "^9.1.5",
     "lint-staged": "^15.5.2",
-    "prettier": "^3.5.3",
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.81.0",
     "stylelint": "^16.20.0",
@@ -109,7 +108,6 @@
     "terser": "^5.36.0",
     "tsx": "^4.20.3",
     "typescript": "~5.6.3",
-    "typescript-eslint": "^8.9.0",
     "unplugin-auto-import": "^20.2.0",
     "unplugin-element-plus": "^0.10.0",
     "unplugin-vue-components": "^29.1.0",

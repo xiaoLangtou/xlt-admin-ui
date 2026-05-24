@@ -283,21 +283,36 @@ declare namespace Api {
       sortOrder?: number
     }
 
+    /** 后端返回的 meta 结构 */
+    interface IMenuMeta {
+      icon?: string
+      isKeepAlive?: boolean | string
+      isHide?: boolean | string
+      isAffix?: boolean | string
+      isIframe?: boolean | string
+      iframeUrl?: string
+      requiresAuth?: boolean
+      title?: string
+    }
+
     interface IMenu {
       id?: number
       parentId?: number
+      parentMenuId?: number
       name?: string
-      menuType?: number
+      menuType?: number | string
       sortOrder?: number
       path?: string
-      component?: string
+      component?: string | null
       icon?: string
-      isKeepAlive?: string
-      isHide?: string
-      isIframe?: string
-      permission?: string
+      isKeepAlive?: string | boolean
+      isHide?: string | boolean
+      isIframe?: string | boolean
+      iframeUrl?: string | null
+      permission?: string | null
       enName?: string
       buttons?: IButtonItem[]
+      meta?: IMenuMeta
       children?: IMenu[]
     }
 

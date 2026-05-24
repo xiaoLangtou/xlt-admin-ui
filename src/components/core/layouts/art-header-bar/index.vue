@@ -182,6 +182,7 @@
   import { themeAnimation } from '@/utils/ui/animation'
   import { useCommon } from '@/hooks/core/useCommon'
   import { useHeaderBar } from '@/hooks/core/useHeaderBar'
+  import { useMenuQuery } from '@/hooks/queries/useMenuQuery'
   import ArtUserMenu from './widget/ArtUserMenu.vue'
 
   defineOptions({ name: 'ArtHeaderBar' })
@@ -217,7 +218,12 @@
     storeToRefs(settingStore)
 
   const { language } = storeToRefs(userStore)
-  const { menuList } = storeToRefs(menuStore)
+
+  const { data: appMenuList } = useMenuQuery({
+    enabled: computed(() => userStore.isLogin)
+  })
+
+  const menuList = computed(() => appMenuList.value ?? menuStore.menuList)
 
   const showNotice = ref(false)
   const notice = ref(null)
@@ -292,12 +298,11 @@
   }
 
   /**
-   * 打开设置面板
+   * 打开偏好设置页面
    */
   const openSetting = (): void => {
-    mittBus.emit('openSetting')
+    router.push({ name: 'Preferences' })
 
-    // 隐藏设置引导提示
     if (showSettingGuide.value) {
       settingStore.hideSettingGuide()
     }

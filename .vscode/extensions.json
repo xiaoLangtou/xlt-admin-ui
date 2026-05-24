@@ -1,8 +1,7 @@
 {
   "recommendations": [
     "vue.volar",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
+    "oxc.oxc-vscode",
     "stylelint.vscode-stylelint",
     "lokalise.i18n-ally",
     "bradlc.vscode-tailwindcss"

@@ -51,13 +51,14 @@ import { useWorktabStore } from '@/store/modules/worktab'
 import { fetchGetUserInfo } from '@/api/auth'
 import { ApiStatus } from '@/utils/http/status'
 import { isHttpError } from '@/utils/http/error'
-import { RouteRegistry, MenuProcessor, IframeRouteManager, RoutePermissionValidator } from '../core'
+import { queryClient } from '@/utils/query'
+import { createMenuQueryKey, fetchAppMenuList } from '@/utils/menu'
+import { RouteRegistry, IframeRouteManager, RoutePermissionValidator } from '../core'
 
 // 路由注册器实例
 let routeRegistry: RouteRegistry | null = null
 
-// 菜单处理器实例
-const menuProcessor = new MenuProcessor()
+// 菜单处理器实例（路由守卫通过 TanStack Query 获取菜单，此处不再直接使用）
 
 // 跟踪是否需要关闭 loading
 let pendingLoading = false
@@ -269,11 +270,18 @@ async function handleDynamicRoutes(
     // 1. 获取用户信息
     await fetchUserInfo()
 
-    // 2. 获取菜单数据
-    const menuList = await menuProcessor.getMenuList()
+    // 2. 获取菜单数据，并合并登录后即可访问的公共路由
+    const userStore = useUserStore()
+    const menuList = await queryClient.fetchQuery({
+      queryKey: createMenuQueryKey({
+        userId: userStore.info?.userId,
+        mode: import.meta.env.VITE_ACCESS_MODE
+      }),
+      queryFn: fetchAppMenuList
+    })
 
     // 3. 验证菜单数据
-    if (!menuProcessor.validateMenuList(menuList)) {
+    if (!menuList.length) {
       throw new Error('获取菜单列表失败，请重新登录')
     }
 

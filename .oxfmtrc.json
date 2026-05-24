@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "printWidth": 100,
   "tabWidth": 2,
   "useTabs": false,
@@ -15,6 +16,11 @@
   "requirePragma": false,
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "strict",
-  "endOfLine": "auto",
-  "rangeStart": 0
+  "rangeStart": 0,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "/node_modules/*",
+    "/dist/*",
+    "/src/main.ts"
+  ]
 }

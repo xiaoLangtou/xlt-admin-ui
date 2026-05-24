@@ -6,7 +6,7 @@
           <ArtSvgIcon
             :icon="item.meta.icon"
             :color="theme?.iconColor"
-            :style="{ color: theme.iconColor }"
+            :style="{ color: theme?.iconColor }"
           />
         </div>
         <span class="menu-name">
@@ -34,7 +34,7 @@
         <ArtSvgIcon
           :icon="item.meta.icon"
           :color="theme?.iconColor"
-          :style="{ color: theme.iconColor }"
+          :style="{ color: theme?.iconColor }"
         />
       </div>
       <div

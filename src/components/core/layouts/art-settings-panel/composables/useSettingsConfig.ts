@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ContainerWidthEnum } from '@/enums/appEnum'
+import { ContainerWidthEnum, MenuThemeEnum } from '@/enums/appEnum'
 import AppConfig from '@/config'
 import { headerBarConfig } from '@/config/modules/headerBar'
 
@@ -30,23 +30,38 @@ export function useSettingsConfig() {
   const pageTransitionOptions = computed(() => [
     {
       value: '',
-      label: t('setting.transition.list.none')
+      type: 'none' as const,
+      icon: 'ri:prohibited-line',
+      label: t('setting.transition.list.none'),
+      description: t('setting.transition.desc.none')
     },
     {
       value: 'fade',
-      label: t('setting.transition.list.fade')
+      type: 'fade' as const,
+      icon: 'ri:contrast-2-line',
+      label: t('setting.transition.list.fade'),
+      description: t('setting.transition.desc.fade')
     },
     {
       value: 'slide-left',
-      label: t('setting.transition.list.slideLeft')
+      type: 'slide-left' as const,
+      icon: 'ri:arrow-left-line',
+      label: t('setting.transition.list.slideLeft'),
+      description: t('setting.transition.desc.slideLeft')
     },
     {
       value: 'slide-bottom',
-      label: t('setting.transition.list.slideBottom')
+      type: 'slide-bottom' as const,
+      icon: 'ri:arrow-down-line',
+      label: t('setting.transition.list.slideBottom'),
+      description: t('setting.transition.desc.slideBottom')
     },
     {
       value: 'slide-top',
-      label: t('setting.transition.list.slideTop')
+      type: 'slide-top' as const,
+      icon: 'ri:arrow-up-line',
+      label: t('setting.transition.list.slideTop'),
+      description: t('setting.transition.desc.slideTop')
     }
   ])
 
@@ -98,6 +113,153 @@ export function useSettingsConfig() {
     // 菜单布局选项
     menuLayoutList: AppConfig.menuLayoutList
   }
+
+  // 菜单风格选项
+  const menuStyleOptions = computed(() => [
+    {
+      theme: MenuThemeEnum.DESIGN,
+      icon: 'ri:layout-left-line',
+      label: t('setting.menu.styles.design')
+    },
+    {
+      theme: MenuThemeEnum.DARK,
+      icon: 'ri:layout-left-2-line',
+      label: t('setting.menu.styles.dark')
+    },
+    {
+      theme: MenuThemeEnum.LIGHT,
+      icon: 'ri:palette-line',
+      label: t('setting.menu.styles.light')
+    }
+  ])
+
+  // 功能开关配置
+  const toggleSettingsConfig = computed(() => {
+    const allSettings = [
+      {
+        key: 'showWorkTab',
+        label: t('setting.basics.list.multiTab'),
+        description: t('setting.descriptions.multiTab'),
+        icon: 'ri:layout-top-line',
+        handler: 'workTab',
+        headerBarKey: null
+      },
+      {
+        key: 'uniqueOpened',
+        label: t('setting.basics.list.accordion'),
+        description: t('setting.descriptions.accordion'),
+        icon: 'ri:node-tree',
+        handler: 'uniqueOpened',
+        headerBarKey: null
+      },
+      {
+        key: 'showMenuButton',
+        label: t('setting.basics.list.collapseSidebar'),
+        description: t('setting.descriptions.collapseSidebar'),
+        icon: 'ri:layout-left-2-line',
+        handler: 'menuButton',
+        headerBarKey: 'menuButton' as const
+      },
+      {
+        key: 'showFastEnter',
+        label: t('setting.basics.list.fastEnter'),
+        description: t('setting.descriptions.fastEnter'),
+        icon: 'ri:flashlight-line',
+        handler: 'fastEnter',
+        headerBarKey: 'fastEnter' as const
+      },
+      {
+        key: 'showRefreshButton',
+        label: t('setting.basics.list.reloadPage'),
+        description: t('setting.descriptions.reloadPage'),
+        icon: 'ri:refresh-line',
+        handler: 'refreshButton',
+        headerBarKey: 'refreshButton' as const
+      },
+      {
+        key: 'showCrumbs',
+        label: t('setting.basics.list.breadcrumb'),
+        description: t('setting.descriptions.breadcrumb'),
+        icon: 'ri:road-map-line',
+        handler: 'crumbs',
+        mobileHide: true,
+        headerBarKey: 'breadcrumb' as const
+      },
+      {
+        key: 'showLanguage',
+        label: t('setting.basics.list.language'),
+        description: t('setting.descriptions.language'),
+        icon: 'ri:translate-2',
+        handler: 'language',
+        headerBarKey: 'language' as const
+      },
+      {
+        key: 'showNprogress',
+        label: t('setting.basics.list.progressBar'),
+        description: t('setting.descriptions.progressBar'),
+        icon: 'ri:loader-4-line',
+        handler: 'nprogress',
+        headerBarKey: null
+      },
+      {
+        key: 'colorWeak',
+        label: t('setting.basics.list.weakMode'),
+        description: t('setting.descriptions.weakMode'),
+        icon: 'ri:contrast-drop-line',
+        handler: 'colorWeak',
+        headerBarKey: null
+      },
+      {
+        key: 'watermarkVisible',
+        label: t('setting.basics.list.watermark'),
+        description: t('setting.descriptions.watermark'),
+        icon: 'ri:drop-line',
+        handler: 'watermark',
+        headerBarKey: null
+      }
+    ]
+
+    return allSettings
+      .filter((setting) => {
+        if (setting.headerBarKey === null) return true
+        const headerBarFeature = headerBarConfig[setting.headerBarKey]
+        return headerBarFeature?.enabled !== false
+      })
+      .map(({ headerBarKey: _headerBarKey, ...setting }) => setting)
+  })
+
+  const toggleGroups = computed(() => {
+    const allSettings = toggleSettingsConfig.value
+    const pick = (keys: string[]) =>
+      allSettings.filter((setting) => keys.includes(setting.key))
+
+    return [
+      {
+        key: 'nav',
+        icon: 'ri:layout-top-line',
+        tone: 'green' as const,
+        title: t('setting.cards.navLayout.title'),
+        desc: t('setting.cards.navLayout.desc'),
+        items: pick(['showWorkTab', 'uniqueOpened', 'showMenuButton', 'showCrumbs'])
+      },
+      {
+        key: 'toolbar',
+        icon: 'ri:tools-line',
+        tone: 'green' as const,
+        title: t('setting.cards.toolbar.title'),
+        desc: t('setting.cards.toolbar.desc'),
+        items: pick(['showFastEnter', 'showRefreshButton', 'showNprogress'])
+      },
+      {
+        key: 'display',
+        icon: 'ri:eye-line',
+        tone: 'green' as const,
+        title: t('setting.cards.display.title'),
+        desc: t('setting.cards.display.desc'),
+        items: pick(['showLanguage', 'colorWeak', 'watermarkVisible'])
+      }
+    ].filter((group) => group.items.length > 0)
+  })
 
   // 基础设置项配置
   const basicSettingsConfig = computed(() => {
@@ -241,6 +403,9 @@ export function useSettingsConfig() {
     containerWidthOptions,
     boxStyleOptions,
     configOptions,
+    menuStyleOptions,
+    toggleSettingsConfig,
+    toggleGroups,
 
     // 设置项配置
     basicSettingsConfig

@@ -9,6 +9,8 @@
 
 import { h } from 'vue'
 
+import { buildViewCandidates } from '@/utils/menu/componentPath'
+
 export class ComponentLoader {
   private modules: Record<string, () => Promise<any>>
 
@@ -25,21 +27,18 @@ export class ComponentLoader {
       return this.createEmptyComponent()
     }
 
-    // 构建可能的路径
-    const fullPath = `../../views${componentPath}.vue`
-    const fullPathWithIndex = `../../views${componentPath}/index.vue`
+    for (const candidate of buildViewCandidates(componentPath)) {
+      const fullPath = `../../views${candidate}.vue`
+      const fullPathWithIndex = `../../views${candidate}/index.vue`
+      const module = this.modules[fullPath] || this.modules[fullPathWithIndex]
 
-    // 先尝试直接路径，再尝试添加/index的路径
-    const module = this.modules[fullPath] || this.modules[fullPathWithIndex]
-
-    if (!module) {
-      console.error(
-        `[ComponentLoader] 未找到组件: ${componentPath}，尝试过的路径: ${fullPath} 和 ${fullPathWithIndex}`
-      )
-      return this.createErrorComponent(componentPath)
+      if (module) {
+        return module
+      }
     }
 
-    return module
+    console.warn(`[ComponentLoader] 未找到组件: ${componentPath}`)
+    return this.createErrorComponent(componentPath)
   }
 
   /**

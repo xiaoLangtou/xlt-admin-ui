@@ -1,5 +1,6 @@
 import request from '@/utils/http'
 import type { AppRouteRecord } from '@/types/router'
+import { normalizeMenuResponse } from '@/utils/menu/transformMenu'
 
 /** 获取菜单树 */
 export function fetchGetMenuTree(params?: Api.Menu.MenuTreeSearchParams) {
@@ -10,10 +11,12 @@ export function fetchGetMenuTree(params?: Api.Menu.MenuTreeSearchParams) {
 }
 
 /** 获取当前用户菜单（路由格式） */
-export function fetchGetMenuList() {
-  return request.get<AppRouteRecord[]>({
+export async function fetchGetMenuList() {
+  const list = await request.get<Array<Api.Menu.IMenu | AppRouteRecord>>({
     url: '/menu/user/list'
   })
+
+  return normalizeMenuResponse(list)
 }
 
 /** 获取菜单详情 */

@@ -26,6 +26,7 @@ $popup-menu-radius: 6px;
   .el-sub-menu__title:hover,
   .el-menu-item:not(.is-active):hover {
     background: $bg-color !important;
+    border-radius: var(--custom-radius);
   }
 }
 
@@ -34,11 +35,24 @@ $popup-menu-radius: 6px;
   .el-menu-item.is-active {
     color: $color !important;
     background-color: $bg-color;
+    border-radius: var(--custom-radius);
 
     .menu-icon {
       .art-svg-icon {
         color: $icon-color !important;
       }
+    }
+
+    &:before{
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 22px;
+      background: $color;
+      border-radius: 0 4px 4px 0;
     }
   }
 }

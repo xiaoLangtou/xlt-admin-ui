@@ -130,9 +130,11 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { useSettingStore } from '@/store/modules/setting'
-  import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
-  import { useMenuStore } from '@/store/modules/menu'
+import { useSettingStore } from '@/store/modules/setting'
+import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
+import { useMenuStore } from '@/store/modules/menu'
+import { useUserStore } from '@/store/modules/user'
+import { useMenuQuery } from '@/hooks/queries/useMenuQuery'
   import { isIframe } from '@/utils/navigation'
   import { handleMenuJump } from '@/utils/navigation'
   import SidebarSubmenu from './widget/SidebarSubmenu.vue'
@@ -148,6 +150,15 @@
   const route = useRoute()
   const router = useRouter()
   const settingStore = useSettingStore()
+  const userStore = useUserStore()
+  const menuStore = useMenuStore()
+
+  const { data: appMenuList } = useMenuQuery({
+    enabled: computed(() => userStore.isLogin)
+  })
+
+  /** 优先使用 Query 缓存，回退至 store（路由守卫初始化阶段） */
+  const allMenus = computed(() => appMenuList.value ?? menuStore.menuList)
 
   const { getMenuOpenWidth, menuType, uniqueOpened, dualMenuShowText, menuOpen, getMenuTheme } =
     storeToRefs(settingStore)
@@ -180,21 +191,20 @@
 
   // 菜单数据
   const firstLevelMenus = computed(() => {
-    return useMenuStore().menuList.filter((menu) => !menu.meta.isHide)
+    return allMenus.value.filter((menu) => !menu.meta.isHide)
   })
 
   const menuList = computed(() => {
-    const menuStore = useMenuStore()
-    const allMenus = menuStore.menuList
+    const allMenuItems = allMenus.value
 
     // 如果不是顶部左侧菜单或双列菜单，直接返回完整菜单列表
     if (!isTopLeftMenu.value && !isDualMenu.value) {
-      return allMenus
+      return allMenuItems
     }
 
     // 处理 iframe 路径
     if (isIframe(route.path)) {
-      return findIframeMenuList(route.path, allMenus)
+      return findIframeMenuList(route.path, allMenuItems)
     }
 
     // 处理一级菜单
@@ -204,7 +214,7 @@
 
     // 返回当前顶级路径对应的子菜单
     const currentTopPath = `/${route.path.split('/')[1]}`
-    const currentMenu = allMenus.find((menu) => menu.path === currentTopPath)
+    const currentMenu = allMenuItems.find((menu) => menu.path === currentTopPath)
     return currentMenu?.children ?? []
   })
 

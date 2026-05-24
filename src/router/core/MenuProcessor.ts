@@ -17,23 +17,34 @@ import { formatMenuTitle } from '@/utils'
 
 export class MenuProcessor {
   /**
+   * 从后端接口获取并处理菜单
+   */
+  async fetchRemoteMenuList(): Promise<AppRouteRecord[]> {
+    const list = await fetchGetMenuList()
+    return this.processMenuList(list)
+  }
+
+  /**
    * 获取菜单数据
    */
   async getMenuList(): Promise<AppRouteRecord[]> {
     const { isFrontendMode } = useAppMode()
 
-    let menuList: AppRouteRecord[]
     if (isFrontendMode.value) {
-      menuList = await this.processFrontendMenu()
-    } else {
-      menuList = await this.processBackendMenu()
+      const menuList = await this.processFrontendMenu()
+      return this.processMenuList(menuList)
     }
 
-    // 在规范化路径之前，验证原始路径配置
-    this.validateMenuPaths(menuList)
+    return this.fetchRemoteMenuList()
+  }
 
-    // 规范化路径（将相对路径转换为完整路径）
-    return this.normalizeMenuPaths(menuList)
+  /**
+   * 菜单后处理：过滤空项、校验路径、规范化路径
+   */
+  processMenuList(menuList: AppRouteRecord[]): AppRouteRecord[] {
+    const filtered = this.filterEmptyMenus(menuList)
+    this.validateMenuPaths(filtered)
+    return this.normalizeMenuPaths(filtered)
   }
 
   /**
@@ -51,14 +62,6 @@ export class MenuProcessor {
     }
 
     return this.filterEmptyMenus(menuList)
-  }
-
-  /**
-   * 处理后端控制模式的菜单
-   */
-  private async processBackendMenu(): Promise<AppRouteRecord[]> {
-    const list = await fetchGetMenuList()
-    return this.filterEmptyMenus(list)
   }
 
   /**

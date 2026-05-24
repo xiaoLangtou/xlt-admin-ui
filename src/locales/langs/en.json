@@ -46,6 +46,127 @@
     "exitKeydown": "Close"
   },
   "setting": {
+    "panel": {
+      "title": "Preferences",
+      "subtitle": "Customize appearance, layout and features",
+      "group": "System",
+      "close": "Close"
+    },
+    "tabs": {
+      "appearance": {
+        "title": "Appearance",
+        "desc": "Configure visual style and color theme"
+      },
+      "menu": {
+        "title": "Menu & Navigation",
+        "desc": "Configure sidebar layout and menu style"
+      },
+      "interface": {
+        "title": "Interface",
+        "desc": "Adjust container width, tabs and page transitions"
+      },
+      "features": {
+        "title": "Features",
+        "desc": "Enable or disable interface features"
+      }
+    },
+    "cards": {
+      "themeStyle": {
+        "title": "Theme Style",
+        "desc": "Choose light, dark, or follow system appearance"
+      },
+      "themeColor": {
+        "desc": "Theme color applies to buttons, links and active states"
+      },
+      "borderRadius": {
+        "title": "Border Radius",
+        "desc": "Adjust corner radius for cards, buttons and inputs"
+      },
+      "menuLayout": {
+        "desc": "Choose how sidebar and top navigation are arranged"
+      },
+      "menuStyle": {
+        "desc": "Control sidebar color and visual style"
+      },
+      "menuWidth": {
+        "title": "Menu Width",
+        "desc": "Adjust expanded sidebar width for different screens"
+      },
+      "boxStyle": {
+        "desc": "Choose how cards and panels are visually separated"
+      },
+      "containerWidth": {
+        "desc": "Control the maximum width of main content area"
+      },
+      "tabStyle": {
+        "title": "Tab Style",
+        "desc": "Set the appearance of multi-tab navigation"
+      },
+      "pageTransition": {
+        "title": "Page Transition",
+        "desc": "Transition animation when switching routes"
+      },
+      "navLayout": {
+        "title": "Navigation & Layout",
+        "desc": "Control navigation bar and sidebar features"
+      },
+      "toolbar": {
+        "title": "Toolbar",
+        "desc": "Control quick access features in the top toolbar"
+      },
+      "display": {
+        "title": "Display",
+        "desc": "Control special display effects in content area"
+      }
+    },
+    "rows": {
+      "displayMode": {
+        "label": "Display Mode",
+        "desc": "Light mode for bright environments, dark mode reduces eye strain"
+      },
+      "pickColor": {
+        "label": "Pick Color",
+        "desc": "Choose a primary color that matches your brand or preference"
+      },
+      "radiusFactor": {
+        "label": "Radius Factor",
+        "desc": "From sharp to rounded, affects all UI component corners"
+      },
+      "layoutMode": {
+        "label": "Layout Mode",
+        "desc": "Different layouts suit different admin system complexity"
+      },
+      "menuAppearance": {
+        "label": "Appearance",
+        "desc": "Theme color mode applies selected color to entire menu background"
+      },
+      "menuOpenWidth": {
+        "label": "Expanded Width",
+        "desc": "Recommended range 180–320px, too wide compresses content area"
+      },
+      "boxDivider": {
+        "label": "Divider Style",
+        "desc": "Border style is lighter, shadow style adds depth"
+      },
+      "widthMode": {
+        "label": "Width Mode",
+        "desc": "Full uses all available space, boxed limits max content width"
+      },
+      "tabAppearance": {
+        "label": "Tab Style",
+        "desc": "Chrome style uses rounded cards, default uses flat underline"
+      },
+      "animationType": {
+        "label": "Animation Type",
+        "desc": "No animation provides the fastest page switching response"
+      }
+    },
+    "sections": {
+      "appearance": "Appearance",
+      "menuNav": "Menu",
+      "interface": "Interface",
+      "features": "Features"
+    },
     "menuType": {
       "title": "Menu Layout",
       "list": [
@@ -64,7 +185,12 @@
       ]
     },
     "menu": {
-      "title": "Menu Style"
+      "title": "Menu Style",
+      "styles": {
+        "design": "Default",
+        "dark": "Dark",
+        "light": "Theme"
+      }
     },
     "color": {
       "title": "Theme Color"
@@ -107,6 +233,22 @@
       "card": "Card",
       "google": "Chrome"
     },
+    "radius": {
+      "sharp": "Sharp",
+      "rounded": "Rounded"
+    },
+    "descriptions": {
+      "multiTab": "Show multi-tab navigation at the top",
+      "accordion": "Only expand one menu group at a time",
+      "collapseSidebar": "Show collapse / expand trigger button",
+      "fastEnter": "Show quick access shortcuts in toolbar",
+      "reloadPage": "Show page reload button in tabs",
+      "breadcrumb": "Show path navigation at page top",
+      "language": "Show language switcher in header",
+      "progressBar": "Show loading progress on route change",
+      "weakMode": "Use color-blind friendly palette",
+      "watermark": "Overlay watermark on page content"
+    },
     "transition": {
       "list": {
         "none": "None",
@@ -114,10 +256,19 @@
         "slideLeft": "Slide Left",
         "slideBottom": "Slide Bottom",
         "slideTop": "Slide Top"
+      },
+      "desc": {
+        "none": "Switch pages instantly",
+        "fade": "Cross-fade between pages",
+        "slideLeft": "New page slides in from left",
+        "slideBottom": "New page slides in from bottom",
+        "slideTop": "New page slides in from top"
       }
     },
     "actions": {
-      "resetConfig": "Reset Config",
+      "resetConfig": "Reset Defaults",
+      "saveConfig": "Save Settings",
+      "saveSuccess": "Settings saved",
       "copyConfig": "Copy Config",
       "copySuccess": "Configuration copied to clipboard, paste it into src/config/setting.ts file",
       "copyFailed": "Copy failed, please try again",
@@ -262,6 +413,7 @@
       "user": "User Manage",
       "role": "Role Manage",
       "userCenter": "User Center",
+      "preferences": "Preferences",
       "menu": "Menu Manage"
     }
   },

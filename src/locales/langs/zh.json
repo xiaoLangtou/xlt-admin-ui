@@ -46,6 +46,127 @@
     "exitKeydown": "关闭"
   },
   "setting": {
+    "panel": {
+      "title": "偏好设置",
+      "subtitle": "自定义系统外观、布局与功能",
+      "group": "系统",
+      "close": "关闭"
+    },
+    "tabs": {
+      "appearance": {
+        "title": "主题外观",
+        "desc": "设置系统的视觉风格与色彩主题"
+      },
+      "menu": {
+        "title": "菜单导航",
+        "desc": "配置侧边栏布局方式与菜单样式"
+      },
+      "interface": {
+        "title": "界面容器",
+        "desc": "调整页面容器、标签栏与切换动画"
+      },
+      "features": {
+        "title": "功能开关",
+        "desc": "开启或关闭各项界面功能"
+      }
+    },
+    "cards": {
+      "themeStyle": {
+        "title": "主题风格",
+        "desc": "选择界面的明暗模式，或跟随系统自动切换"
+      },
+      "themeColor": {
+        "desc": "主题色将应用于按钮、链接、选中状态等交互元素"
+      },
+      "borderRadius": {
+        "title": "界面圆角",
+        "desc": "调整卡片、按钮、输入框等组件的圆角大小"
+      },
+      "menuLayout": {
+        "desc": "选择侧边栏与顶部导航的排列方式"
+      },
+      "menuStyle": {
+        "desc": "控制侧边栏的配色与外观表现"
+      },
+      "menuWidth": {
+        "title": "菜单宽度",
+        "desc": "调整侧边栏的展开宽度，适配不同屏幕尺寸"
+      },
+      "boxStyle": {
+        "desc": "选择卡片和面板的视觉区分方式"
+      },
+      "containerWidth": {
+        "desc": "控制页面主内容区域的最大宽度"
+      },
+      "tabStyle": {
+        "title": "标签页风格",
+        "desc": "设置多标签导航栏的外观样式"
+      },
+      "pageTransition": {
+        "title": "页面切换动画",
+        "desc": "路由切换时的过渡动画效果"
+      },
+      "navLayout": {
+        "title": "导航与布局",
+        "desc": "控制导航栏和侧边栏相关功能的显示"
+      },
+      "toolbar": {
+        "title": "工具栏功能",
+        "desc": "控制顶部工具栏的快捷功能入口"
+      },
+      "display": {
+        "title": "显示与视觉",
+        "desc": "控制内容区域的特殊显示效果"
+      }
+    },
+    "rows": {
+      "displayMode": {
+        "label": "显示模式",
+        "desc": "浅色模式适合明亮环境，深色模式减少夜间眼部疲劳"
+      },
+      "pickColor": {
+        "label": "选择颜色",
+        "desc": "选择一个与你品牌或偏好匹配的主色调"
+      },
+      "radiusFactor": {
+        "label": "圆角系数",
+        "desc": "从直角到圆润，影响所有 UI 组件的边角风格"
+      },
+      "layoutMode": {
+        "label": "布局模式",
+        "desc": "不同布局适用于不同内容复杂度的后台系统"
+      },
+      "menuAppearance": {
+        "label": "外观风格",
+        "desc": "主题色模式会将选定主题色应用到整个菜单背景"
+      },
+      "menuOpenWidth": {
+        "label": "展开宽度",
+        "desc": "推荐范围 180–320px，过宽会压缩内容区域"
+      },
+      "boxDivider": {
+        "label": "分隔样式",
+        "desc": "边框风格更轻量，阴影风格具有层次浮起感"
+      },
+      "widthMode": {
+        "label": "宽度模式",
+        "desc": "铺满会使用全部可用空间，定宽会限制内容最大宽度"
+      },
+      "tabAppearance": {
+        "label": "标签样式",
+        "desc": "谷歌风格为圆角卡片式，默认为扁平下划线样式"
+      },
+      "animationType": {
+        "label": "动画类型",
+        "desc": "选择无动画可获得最快的页面切换响应速度"
+      }
+    },
+    "sections": {
+      "appearance": "主题外观",
+      "menuNav": "菜单导航",
+      "interface": "界面容器",
+      "features": "功能开关"
+    },
     "menuType": {
       "title": "菜单布局",
       "list": [
@@ -64,7 +185,12 @@
       ]
     },
     "menu": {
-      "title": "菜单风格"
+      "title": "菜单风格",
+      "styles": {
+        "design": "默认",
+        "dark": "暗色",
+        "light": "主题色"
+      }
     },
     "color": {
       "title": "系统主题色"
@@ -107,6 +233,22 @@
       "card": "卡片",
       "google": "谷歌"
     },
+    "radius": {
+      "sharp": "直角",
+      "rounded": "圆润"
+    },
+    "descriptions": {
+      "multiTab": "在页面顶部显示多页签导航",
+      "accordion": "同时只展开一个菜单组",
+      "collapseSidebar": "显示收起 / 展开触发按钮",
+      "fastEnter": "工具栏显示常用功能快捷方式",
+      "reloadPage": "在标签栏显示页面刷新按钮",
+      "breadcrumb": "页面顶部显示路径导航",
+      "language": "顶栏显示语言切换入口",
+      "progressBar": "路由切换时显示加载进度",
+      "weakMode": "使用对色弱友好的配色方案",
+      "watermark": "在页面内容区域叠加水印"
+    },
     "transition": {
       "list": {
         "none": "无动画",
@@ -114,10 +256,19 @@
         "slideLeft": "左侧滑入",
         "slideBottom": "下方滑入",
         "slideTop": "上方滑入"
+      },
+      "desc": {
+        "none": "切换时不播放过渡",
+        "fade": "新旧页面交叉淡入淡出",
+        "slideLeft": "新页面从左侧滑入",
+        "slideBottom": "新页面从下方滑入",
+        "slideTop": "新页面从上方滑入"
       }
     },
     "actions": {
-      "resetConfig": "重置配置",
+      "resetConfig": "恢复默认",
+      "saveConfig": "保存配置",
+      "saveSuccess": "配置已保存",
       "copyConfig": "复制配置",
       "copySuccess": "配置已复制到剪贴板，可粘贴到 src/config/setting.ts 文件中",
       "copyFailed": "复制失败，请重试",
@@ -262,6 +413,7 @@
       "user": "用户管理",
       "role": "角色管理",
       "userCenter": "个人中心",
+      "preferences": "偏好设置",
       "menu": "菜单管理"
     }
   },

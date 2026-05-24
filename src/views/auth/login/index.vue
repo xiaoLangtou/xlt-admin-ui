@@ -179,6 +179,14 @@
   let captchaTimer: ReturnType<typeof setTimeout> | null = null
   const CAPTCHA_EXPIRE_MS = 60_000
 
+  const formatCaptchaImage = (captcha: string) => {
+    if (captcha.startsWith('data:')) return captcha
+    if (captcha.trimStart().startsWith('<svg')) {
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(captcha)}`
+    }
+    return `data:image/png;base64,${captcha}`
+  }
+
   const loadCaptcha = async () => {
     captchaExpired.value = false
     captchaImage.value = ''
@@ -186,9 +194,7 @@
     try {
       const data = await fetchCaptcha()
       formData.captchaId = data.captchaId
-      captchaImage.value = data.captcha.startsWith('data:')
-        ? data.captcha
-        : `data:image/png;base64,${data.captcha}`
+      captchaImage.value = formatCaptchaImage(data.captcha)
       captchaTimer = setTimeout(() => {
         captchaExpired.value = true
       }, CAPTCHA_EXPIRE_MS)

@@ -4,3 +4,4 @@
  */
 
 export * from './echarts'
+export * from './vue-query'

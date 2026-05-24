@@ -30,3 +30,12 @@ export { useChart, useChartComponent, useChartOps } from './core/useChart'
 
 // 布局高度
 export { useLayoutHeight, useAutoLayoutHeight } from './core/useLayoutHeight'
+
+// TanStack Query
+export {
+  useCaptchaQuery,
+  useUserInfoQuery,
+  useLoginMutation,
+  useLogoutMutation
+} from './queries/useAuthQuery'
+export { useMenuQuery } from './queries/useMenuQuery'

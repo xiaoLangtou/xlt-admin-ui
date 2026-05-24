@@ -30,7 +30,7 @@
       :icon="item.meta.icon"
       :color="theme?.iconColor"
       class="mr-1 text-lg"
-      :style="{ color: theme.iconColor }"
+      :style="{ color: theme?.iconColor }"
     />
     <span class="text-md">{{ formatMenuTitle(item.meta.title) }}</span>
     <div

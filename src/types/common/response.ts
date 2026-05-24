@@ -23,8 +23,11 @@
 export interface BaseResponse<T = unknown> {
   /** 状态码 */
   code: number
-  /** 消息 */
-  msg: string
+  /** 消息（兼容 msg / message） */
+  msg?: string
+  message?: string
   /** 数据 */
   data: T
+  /** 时间戳 */
+  timestamp?: string
 }

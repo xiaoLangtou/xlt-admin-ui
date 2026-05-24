@@ -1,29 +1,41 @@
 <template>
-  <div>
-    <SectionTitle :title="$t('setting.basics.title')" class="mt-10" />
-    <SettingItem
-      v-for="config in basicSettingsConfig"
-      :key="config.key"
-      :config="config"
-      :model-value="getSettingValue(config.key)"
-      @change="handleSettingChange(config.handler, $event)"
-    />
+  <div class="pref-panel">
+    <PrefGroup
+      v-for="group in toggleGroups"
+      :key="group.key"
+      :title="group.title"
+      :desc="group.desc"
+      list
+    >
+      <PrefRow
+        v-for="config in group.items"
+        :key="config.key"
+        :label="config.label"
+        :desc="config.description"
+        variant="switch"
+        :mobile-hide="config.mobileHide"
+      >
+        <SettingToggle
+          :model-value="getSettingValue(config.key)"
+          @update:model-value="handleToggleChange(config.handler)"
+        />
+      </PrefRow>
+    </PrefGroup>
   </div>
 </template>
 
 <script setup lang="ts">
-  import SectionTitle from './SectionTitle.vue'
-  import SettingItem from './SettingItem.vue'
+  import PrefGroup from './PrefGroup.vue'
+  import PrefRow from './PrefRow.vue'
+  import SettingToggle from './SettingToggle.vue'
   import { useSettingStore } from '@/store/modules/setting'
   import { useSettingsConfig } from '../composables/useSettingsConfig'
   import { useSettingsHandlers } from '../composables/useSettingsHandlers'
-  import { storeToRefs } from 'pinia'
 
   const settingStore = useSettingStore()
-  const { basicSettingsConfig } = useSettingsConfig()
+  const { toggleGroups } = useSettingsConfig()
   const { basicHandlers } = useSettingsHandlers()
 
-  // 获取store的响应式状态
   const {
     uniqueOpened,
     showMenuButton,
@@ -34,14 +46,9 @@
     showLanguage,
     showNprogress,
     colorWeak,
-    watermarkVisible,
-    menuOpenWidth,
-    tabStyle,
-    pageTransition,
-    customRadius
+    watermarkVisible
   } = storeToRefs(settingStore)
 
-  // 创建设置值映射
   const settingValueMap = {
     uniqueOpened,
     showMenuButton,
@@ -52,26 +59,16 @@
     showLanguage,
     showNprogress,
     colorWeak,
-    watermarkVisible,
-    menuOpenWidth,
-    tabStyle,
-    pageTransition,
-    customRadius
+    watermarkVisible
   }
 
-  // 获取设置值的方法
   const getSettingValue = (key: string) => {
     const settingRef = settingValueMap[key as keyof typeof settingValueMap]
-    return settingRef?.value ?? null
+    return Boolean(settingRef?.value)
   }
 
-  // 统一的设置变更处理
-  const handleSettingChange = (handlerName: string, value: any) => {
-    const handler = (basicHandlers as any)[handlerName]
-    if (typeof handler === 'function') {
-      handler(value)
-    } else {
-      console.warn(`Handler "${handlerName}" not found in basicHandlers`)
-    }
+  const handleToggleChange = (handlerName: string) => {
+    const handler = (basicHandlers as Record<string, (...args: unknown[]) => void>)[handlerName]
+    handler?.()
   }
 </script>

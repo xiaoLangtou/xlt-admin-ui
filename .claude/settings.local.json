@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx vue-tsc:*)",
+      "Bash(npx oxfmt:*)",
+      "Bash(npx oxlint:*)",
+      "Bash(wait)"
     ]
   }
 }
