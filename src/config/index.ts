@@ -26,7 +26,7 @@
  * - headerBar: 顶部栏功能配置
  *
  * @module config
- * @author Art Design Pro Team
+ * @author Xlt Admin Team
  */
 
 import { MenuThemeEnum, MenuTypeEnum, SystemThemeEnum } from '@/enums/appEnum'
@@ -38,7 +38,7 @@ import { headerBarConfig } from './modules/headerBar'
 const appConfig: SystemConfig = {
   // 系统信息
   systemInfo: {
-    name: 'Art Design Pro' // 系统名称
+    name: 'Xlt Admin' // 系统名称
   },
   // 系统主题
   systemThemeStyles: {
@@ -118,13 +118,26 @@ const appConfig: SystemConfig = {
   ],
   // 系统主色
   systemMainColor: [
-    '#5D87FF',
-    '#B48DF3',
-    '#1D84FF',
-    '#60C041',
-    '#38C0FC',
-    '#F9901F',
-    '#FF80C8'
+    '#008B6E',
+    '#2255E0',
+    '#6045C8',
+    '#8833DD',
+    '#A020C0',
+    '#B040A0',
+    '#C8207A',
+    '#C03040',
+    '#BB2020',
+    '#C84010',
+    '#B85010',
+    '#E8B800',
+    '#88EE00',
+    '#006B30',
+    '#007A5A',
+    '#217A60',
+    '#007888',
+    '#2244C8',
+    "#6366f1",
+    "#8b5cf6"
   ] as const,
   // 快速入口配置
   fastEnter: fastEnterConfig,

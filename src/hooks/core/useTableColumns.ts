@@ -29,7 +29,7 @@
  * ```
  *
  * @module useTableColumns
- * @author Art Design Pro Team
+ * @author Xlt Admin Team
  */
 
 import { ref, computed, watch } from 'vue'

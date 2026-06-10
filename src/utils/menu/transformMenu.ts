@@ -102,6 +102,15 @@ export function transformBackendMenuToRoute(menu: BackendMenu): AppRouteRecord {
     path = `/outside/link/${menu.id ?? formatRouteName(menu.name)}`
   }
 
+  const authList: Array<{ title: string; authMark: string; sort: number }> | undefined =
+    menu.buttons?.length
+      ? menu.buttons.map((btn, idx) => ({
+          title: btn.name || '',
+          authMark: btn.permission || '',
+          sort: btn.sortOrder ?? idx + 1
+        }))
+      : undefined
+
   const route: AppRouteRecord = {
     id: menu.id,
     path,
@@ -115,7 +124,8 @@ export function transformBackendMenuToRoute(menu: BackendMenu): AppRouteRecord {
       isIframe,
       link,
       fixedTab: parseBool(meta.isAffix),
-      authMark: menu.permission || undefined
+      authMark: menu.permission || undefined,
+      authList
     }
   }
 

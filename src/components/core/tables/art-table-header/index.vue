@@ -86,7 +86,9 @@
                 </div>
                 <ElCheckbox
                   :model-value="getColumnVisibility(item)"
-                  @update:model-value="(val) => updateColumnVisibility(item, val)"
+                  @update:model-value="
+                    (val: CheckboxValueType) => updateColumnVisibility(item, val)
+                  "
                   :disabled="item.disabled"
                   class="flex-1 min-w-0 [&_.el-checkbox__label]:overflow-hidden [&_.el-checkbox__label]:text-ellipsis [&_.el-checkbox__label]:whitespace-nowrap"
                   >{{
@@ -130,7 +132,7 @@
   import { VueDraggable } from 'vue-draggable-plus'
   import { useI18n } from 'vue-i18n'
   import type { ColumnOption } from '@/types/component'
-  import { ElScrollbar } from 'element-plus'
+  import { ElScrollbar, type CheckboxValueType } from 'element-plus'
 
   defineOptions({ name: 'ArtTableHeader' })
 

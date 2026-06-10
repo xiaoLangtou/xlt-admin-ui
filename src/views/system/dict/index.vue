@@ -46,8 +46,8 @@
                 </div>
                 <div class="type-meta" @click.stop>
                   <span class="type-actions">
-                    <el-icon class="action-btn" @click="showTypeDialog('edit', item)"><Edit /></el-icon>
-                    <el-icon class="action-btn danger" @click="deleteType(item)"><Delete /></el-icon>
+                    <el-icon class="action-btn" @click="showTypeDialog('edit', item)"><square-pen  color="#4d5875"/></el-icon>
+                    <el-icon class="action-btn danger" @click="deleteType(item)"><Trash2 color="#4d5875"/></el-icon>
                   </span>
                 </div>
               </div>
@@ -146,6 +146,7 @@
 
 <script setup lang="ts">
   import { Plus, Search, Edit, Delete, Loading, Collection, Refresh } from '@element-plus/icons-vue'
+  import { SquarePen,Trash2 } from '@lucide/vue'
   import { ElMessageBox } from 'element-plus'
   import { useTableColumns } from '@/hooks/core/useTableColumns'
   import {

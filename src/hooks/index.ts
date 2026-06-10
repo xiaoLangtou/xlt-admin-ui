@@ -39,3 +39,48 @@ export {
   useLogoutMutation
 } from './queries/useAuthQuery'
 export { useMenuQuery } from './queries/useMenuQuery'
+export {
+  useDictTypeListQuery,
+  useAddDictTypeMutation,
+  useUpdateDictTypeMutation,
+  useRemoveDictTypeMutation,
+  useDictDataListQuery,
+  useAddDictDataMutation,
+  useUpdateDictDataMutation,
+  useRemoveDictDataMutation
+} from './queries/useDictQuery'
+export {
+  useDeptListQuery,
+  useDeptTreeQuery,
+  useDeptDetailQuery,
+  useGenerateDeptConstantsQuery,
+  useAddDeptMutation,
+  useEditDeptMutation,
+  useRemoveDeptMutation,
+  useChangeDeptStatusMutation
+} from './queries/useDeptQuery'
+export {
+  usePostListQuery,
+  usePostDetailQuery,
+  useAddPostMutation,
+  useEditPostMutation,
+  useRemovePostMutation,
+  useChangePostStatusMutation
+} from './queries/usePostQuery'
+export {
+  useApiListQuery,
+  useAllApisQuery,
+  useApiDetailQuery,
+  useApiGroupsQuery,
+  useSyncApisQuery,
+  useAddApiMutation,
+  useEditApiMutation,
+  useRemoveApiMutation,
+  useIgnoreApiMutation,
+  useBatchCreateApisMutation
+} from './queries/useApiQuery'
+export {
+  useLogListQuery,
+  useLogDetailQuery
+} from './queries/useLoggerQuery'
+export { useCacheInfoQuery } from './queries/useCacheQuery'

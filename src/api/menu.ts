@@ -27,18 +27,18 @@ export function fetchGetMenuDetail(id: number | string) {
 }
 
 /** 创建菜单 */
-export function fetchCreateMenu(params: Api.Menu.MenuFormParams) {
+export function fetchCreateMenu(data: Api.Menu.MenuFormParams) {
   return request.post({
     url: '/menu/create',
-    params
+    data
   })
 }
 
 /** 更新菜单 */
-export function fetchUpdateMenu(params: Api.Menu.MenuFormParams & { id: number }) {
+export function fetchUpdateMenu(data: Api.Menu.MenuFormParams & { id: number }) {
   return request.post({
     url: '/menu/update',
-    params
+    data
   })
 }
 

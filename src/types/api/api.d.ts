@@ -409,6 +409,7 @@ declare namespace Api {
       status?: number | string
       description?: string
       sortOrder?: number
+      createTime?: string
     }
 
     type PostList = Api.Common.ResPage<IPost>
@@ -457,6 +458,7 @@ declare namespace Api {
       description?: string
       method?: Api.Common.HttpMethod
       apiGroup?: string
+      tags?: string
     }
 
     interface SyncApiResponse {
@@ -485,13 +487,19 @@ declare namespace Api {
       id?: number
       requestPath?: string
       requestMethod?: string
+      requestUrl?: string
       requestParams?: string
       requestIp?: string
+      requestIpAddr?: string
       requestTime?: number
+      requestTimeConsume?: string
       browser?: string
       os?: string
       module?: string
+      logType?: string
+      logContent?: string
       responseBody?: string
+      status?: number
       createBy?: string
       createTime?: string
     }

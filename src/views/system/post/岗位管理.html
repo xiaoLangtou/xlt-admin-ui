@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>部门管理 / 岗位管理 — 后台管理系统</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #181a23;
+  --surface-2: #1e2030;
+  --surface-3: #252738;
+  --border: #2a2d3e;
+  --border-light: #363a50;
+  --accent: #f0a030;
+  --accent-dim: rgba(240,160,48,0.12);
+  --accent-hover: #f5b550;
+  --text: #e4e4e8;
+  --text-secondary: #9598a8;
+  --text-muted: #5e6178;
+  --danger: #e85454;
+  --danger-dim: rgba(232,84,84,0.12);
+  --success: #3ecf8e;
+  --success-dim: rgba(62,207,142,0.12);
+  --info: #5b8def;
+  --info-dim: rgba(91,141,239,0.12);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --sidebar-w: 220px;
+  --header-h: 56px;
+  --left-w: 340px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Noto Sans SC',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  font-size:13.5px;line-height:1.6;
+  overflow:hidden;height:100vh;
+}
+
+/* ── Sidebar ── */
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;z-index:10;
+}
+.sidebar-logo{
+  height:var(--header-h);display:flex;align-items:center;
+  padding:0 20px;border-bottom:1px solid var(--border);gap:10px;
+}
+.logo-icon{
+  width:28px;height:28px;background:var(--accent);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;color:var(--bg);
+}
+.sidebar-logo span{font-weight:600;font-size:15px;letter-spacing:.02em}
+.sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
+.ngl{
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--text-muted);padding:16px 12px 6px;font-weight:500;
+}
+.ni{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:var(--radius);
+  color:var(--text-secondary);cursor:pointer;
+  transition:all .18s;font-size:13.5px;position:relative;margin-bottom:1px;
+}
+.ni:hover{background:var(--surface-2);color:var(--text)}
+.ni.active{background:var(--accent-dim);color:var(--accent)}
+.ni.active::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:18px;background:var(--accent);border-radius:0 3px 3px 0;
+}
+.ni .ic{width:18px;height:18px;opacity:.7;flex-shrink:0}
+.ni.active .ic{opacity:1}
+
+/* ── Main ── */
+.main{margin-left:var(--sidebar-w);height:100vh;display:flex;flex-direction:column}
+.hdr{
+  height:var(--header-h);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;background:var(--surface);flex-shrink:0;
+}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted)}
+.breadcrumb .sep{opacity:.4}
+.breadcrumb .cur{color:var(--text);font-weight:500}
+.hdr-r{display:flex;align-items:center;gap:14px}
+.hdr-btn{
+  width:34px;height:34px;border-radius:var(--radius);
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-secondary);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .18s;
+}
+.hdr-btn:hover{background:var(--surface-2);color:var(--text);border-color:var(--border-light)}
+.av{
+  width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),#e07020);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;color:#fff;cursor:pointer;
+}
+
+/* ── Page Wrapper ── */
+.page-wrap{display:none;flex:1;overflow:hidden}
+.page-wrap.active{display:flex}
+
+/* ── Layout ── */
+.layout{flex:1;display:flex;overflow:hidden}
+
+/* ── Btn ── */
+.btn{
+  padding:6px 14px;border-radius:6px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-secondary);font-size:12.5px;font-family:inherit;
+  cursor:pointer;transition:all .18s;
+  display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+}
+.btn:hover{background:var(--surface-2);border-color:var(--border-light);color:var(--text)}
+.btn-p{background:var(--accent);border-color:var(--accent);color:#111;font-weight:500}
+.btn-p:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#111}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-d{color:var(--danger)}
+.btn-d:hover{background:var(--danger-dim);border-color:var(--danger);color:var(--danger)}
+
+/* ═══════════════════════════════
+   Department Management
+   ═══════════════════════════════ */
+.dept-left{
+  width:var(--left-w);flex-shrink:0;
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  opacity:0;animation:fadeSlide .45s ease forwards;
+}
+@keyframes fadeSlide{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+
+.lp-h{padding:16px 16px 0;flex-shrink:0}
+.lp-tr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.lp-tl{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.lp-tl .ct{font-size:11px;font-weight:500;background:var(--surface-3);color:var(--text-muted);padding:1px 7px;border-radius:10px}
+.lp-s{position:relative;margin-bottom:10px}
+.lp-s input{
+  width:100%;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:6px;
+  padding:7px 10px 7px 32px;
+  color:var(--text);font-size:12.5px;font-family:inherit;
+  outline:none;transition:border-color .18s;
+}
+.lp-s input:focus{border-color:var(--accent)}
+.lp-s input::placeholder{color:var(--text-muted)}
+.lp-s svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+
+.dept-tree{flex:1;overflow-y:auto;padding:6px 10px}
+.dept-tree::-webkit-scrollbar{width:4px}
+.dept-tree::-webkit-scrollbar-track{background:transparent}
+.dept-tree::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:3px}
+
+.d-node{}
+.d-row{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 10px;border-radius:6px;
+  cursor:pointer;transition:all .18s;position:relative;
+  margin-bottom:1px;
+}
+.d-row:hover{background:var(--surface-2)}
+.d-row.selected{background:var(--accent-dim)}
+.d-row.selected .d-name{color:var(--accent)}
+.d-toggle{
+  width:18px;height:18px;display:flex;align-items:center;justify-content:center;
+  color:var(--text-muted);transition:transform .2s;cursor:pointer;flex-shrink:0;
+}
+.d-toggle.open{transform:rotate(90deg)}
+.d-toggle.hide{visibility:hidden}
+.d-ic{
+  width:20px;height:20px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:10px;font-weight:600;
+}
+.d-ic.has-child{background:var(--info-dim);color:var(--info)}
+.d-ic.leaf{background:var(--success-dim);color:var(--success)}
+.d-name{flex:1;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-tag{
+  font-size:10px;padding:1px 6px;border-radius:4px;
+  background:var(--surface-3);color:var(--text-muted);
+  border:1px solid var(--border-light);flex-shrink:0;
+}
+.d-acts{display:none;gap:2px;flex-shrink:0}
+.d-row:hover .d-acts{display:flex}
+.d-ab{
+  width:22px;height:22px;border:none;background:transparent;
+  color:var(--text-muted);border-radius:4px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+.d-ab:hover{background:var(--surface-3);color:var(--text)}
+.d-ab.del:hover{background:var(--danger-dim);color:var(--danger)}
+.d-children{padding-left:22px;overflow:hidden;transition:max-height .3s ease}
+.d-children.collapsed{max-height:0!important}
+
+/* Dept Right */
+.dept-right{
+  flex:1;display:flex;flex-direction:column;overflow:hidden;
+  opacity:0;animation:fadeSlideR .45s ease forwards;animation-delay:.08s;
+}
+@keyframes fadeSlideR{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+.dept-detail{flex:1;overflow-y:auto;padding:24px 28px}
+.dept-detail::-webkit-scrollbar{width:5px}
+.dept-detail::-webkit-scrollbar-track{background:transparent}
+.dept-detail::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:4px}
+
+.fs{margin-bottom:24px}
+.fs-t{
+  font-size:12px;font-weight:500;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);
+}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+.fi{display:flex;flex-direction:column;gap:5px}
+.fi.full{grid-column:1/-1}
+.fl{font-size:12.5px;color:var(--text-secondary);display:flex;align-items:center;gap:3px}
+.fl .req{color:var(--danger);font-size:13px}
+.f-input{
+  background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+  padding:8px 12px;color:var(--text);font-size:13px;font-family:inherit;
+  outline:none;transition:border-color .18s;
+}
+.f-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(240,160,48,.08)}
+.f-input::placeholder{color:var(--text-muted)}
+textarea.f-input{min-height:72px;resize:vertical;line-height:1.5}
+.f-select{
+  background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+  padding:8px 32px 8px 12px;color:var(--text);font-size:13px;font-family:inherit;
+  outline:none;appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235e6178' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;
+  transition:border-color .18s;
+}
+.f-select:focus{border-color:var(--accent)}
+.radio-group{display:flex;gap:16px;padding-top:4px}
+.radio-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:6px;
+  border:1px solid var(--border);cursor:pointer;
+  font-size:13px;color:var(--text-secondary);transition:all .18s;
+}
+.radio-pill:hover{border-color:var(--border-light)}
+.radio-pill.sel{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.rd{width:14px;height:14px;border-radius:50%;border:2px solid var(--border-light);transition:border-color .18s;position:relative;display:flex;align-items:center;justify-content:center}
+.rd::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:0;transition:opacity .18s}
+.radio-pill.sel .rd{border-color:var(--accent)}
+.radio-pill.sel .rd::after{opacity:1}
+.toggle-track{
+  width:36px;height:20px;border-radius:10px;background:var(--border-light);
+  position:relative;cursor:pointer;transition:background .2s;
+}
+.toggle-track.on{background:var(--accent)}
+.toggle-track::after{
+  content:'';width:16px;height:16px;background:#fff;border-radius:50%;
+  position:absolute;top:2px;left:2px;transition:transform .2s;
+}
+.toggle-track.on::after{transform:translateX(16px)}
+
+.dept-footer{
+  padding:14px 28px;border-top:1px solid var(--border);
+  display:flex;justify-content:flex-end;gap:8px;flex-shrink:0;background:var(--surface);
+}
+
+/* Sub depts table */
+.sub-table{width:100%;border-collapse:collapse;margin-top:8px}
+.sub-table th,.sub-table td{text-align:left;padding:8px 12px;font-size:12.5px;border-bottom:1px solid var(--border)}
+.sub-table th{color:var(--text-muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface-2)}
+.sub-table td{color:var(--text-secondary)}
+.sub-table tr:last-child td{border-bottom:none}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500}
+.badge.on{background:var(--success-dim);color:var(--success)}
+.badge.off{background:var(--danger-dim);color:var(--danger)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+
+.empty-state{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;color:var(--text-muted);gap:12px;
+}
+.empty-state svg{opacity:.25}
+.empty-state p{font-size:13px}
+
+/* ═══════════════════════════════
+   Post Management
+   ═══════════════════════════════ */
+.post-wrap{flex:1;overflow-y:auto;padding:24px 28px 32px}
+.post-wrap::-webkit-scrollbar{width:5px}
+.post-wrap::-webkit-scrollbar-track{background:transparent}
+.post-wrap::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:4px}
+
+.ph{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+.ph-title{font-size:18px;font-weight:600}
+.ph-sub{font-size:12.5px;color:var(--text-muted);margin-top:3px}
+
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:18px 20px;display:flex;align-items:center;gap:14px;
+  opacity:0;animation:fadeUp .5s ease forwards;
+}
+.stat-card:nth-child(1){animation-delay:.05s}
+.stat-card:nth-child(2){animation-delay:.1s}
+.stat-card:nth-child(3){animation-delay:.15s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.stat-ic{
+  width:42px;height:42px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.stat-ic.blue{background:var(--info-dim);color:var(--info)}
+.stat-ic.green{background:var(--success-dim);color:var(--success)}
+.stat-ic.red{background:var(--danger-dim);color:var(--danger)}
+.stat-v{font-size:24px;font-weight:700;line-height:1.1}
+.stat-l{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+.toolbar{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:14px 18px;display:flex;align-items:center;gap:10px;
+  flex-wrap:wrap;margin-bottom:14px;
+}
+.sbox{position:relative;flex:0 1 240px}
+.sbox input{
+  width:100%;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:6px;
+  padding:7px 12px 7px 32px;
+  color:var(--text);font-size:12.5px;font-family:inherit;
+  outline:none;transition:border-color .18s;
+}
+.sbox input:focus{border-color:var(--accent)}
+.sbox input::placeholder{color:var(--text-muted)}
+.sbox svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+.f-select-sm{
+  background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+  padding:7px 28px 7px 10px;color:var(--text);font-size:12.5px;font-family:inherit;
+  outline:none;appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235e6178' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center;
+}
+.f-select-sm:focus{border-color:var(--accent)}
+.tb-spacer{flex:1}
+
+.tbl-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:.2s;
+}
+table{width:100%;border-collapse:collapse}
+thead th{
+  text-align:left;padding:12px 16px;font-size:11.5px;font-weight:600;
+  color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;
+  border-bottom:1px solid var(--border);background:var(--surface-2);white-space:nowrap;
+}
+tbody td{
+  padding:13px 16px;border-bottom:1px solid var(--border);
+  font-size:13.5px;vertical-align:middle;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:rgba(255,255,255,.01)}
+tbody tr{opacity:0;animation:fadeRow .4s ease forwards}
+tbody tr:nth-child(1){animation-delay:.25s}
+tbody tr:nth-child(2){animation-delay:.3s}
+tbody tr:nth-child(3){animation-delay:.35s}
+tbody tr:nth-child(4){animation-delay:.4s}
+tbody tr:nth-child(5){animation-delay:.45s}
+tbody tr:nth-child(6){animation-delay:.5s}
+tbody tr:nth-child(7){animation-delay:.55s}
+tbody tr:nth-child(8){animation-delay:.6s}
+@keyframes fadeRow{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
+.row-name{font-weight:600;color:var(--text)}
+.code{
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  background:var(--surface-3);padding:2px 7px;border-radius:4px;
+  color:var(--accent);border:1px solid var(--border-light);
+}
+.sort-v{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted)}
+.time-v{font-size:12.5px;color:var(--text-secondary)}
+.actions{display:flex;gap:4px}
+.act{
+  width:30px;height:30px;border-radius:6px;border:none;background:transparent;
+  color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .18s;
+}
+.act:hover{background:var(--surface-2);color:var(--text)}
+.act.e:hover{color:var(--accent);background:var(--accent-dim)}
+.act.d:hover{color:var(--danger);background:var(--danger-dim)}
+
+.pager{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;border-top:1px solid var(--border);
+}
+.pager-info{font-size:12.5px;color:var(--text-muted)}
+.pager-btns{display:flex;gap:4px}
+.pg{
+  min-width:30px;height:30px;border-radius:6px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-secondary);font-size:12px;font-family:inherit;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .18s;padding:0 7px;
+}
+.pg:hover{border-color:var(--accent);color:var(--accent)}
+.pg.act{background:var(--accent);border-color:var(--accent);color:#111;font-weight:600}
+.pg:disabled{opacity:.35;cursor:not-allowed}
+
+/* ── Modal ── */
+.mo{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.35);backdrop-filter:blur(3px);
+  z-index:100;display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transition:all .25s;
+}
+.mo.open{opacity:1;visibility:visible}
+.modal{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;box-shadow:0 12px 48px rgba(0,0,0,.4);
+  width:440px;max-height:85vh;display:flex;flex-direction:column;
+  transform:translateY(16px) scale(.97);transition:transform .25s;
+}
+.mo.open .modal{transform:translateY(0) scale(1)}
+.mh{
+  padding:18px 24px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.mt{font-size:15px;font-weight:600}
+.mc{
+  width:30px;height:30px;border-radius:6px;border:none;background:transparent;
+  color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+.mc:hover{background:var(--surface-2);color:var(--text)}
+.mb{padding:20px 24px;overflow-y:auto;flex:1}
+.mf{
+  padding:14px 24px;border-top:1px solid var(--border);
+  display:flex;justify-content:flex-end;gap:8px;flex-shrink:0;
+}
+.ffield{margin-bottom:16px}
+.ffield:last-child{margin-bottom:0}
+.flbl{display:block;font-size:12.5px;color:var(--text-secondary);margin-bottom:5px;font-weight:500}
+.flbl .req{color:var(--danger);margin-right:2px}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+
+/* Toast */
+.toast{
+  position:fixed;top:24px;right:24px;z-index:200;
+  padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;
+  box-shadow:0 4px 24px rgba(0,0,0,.3);
+  transform:translateY(-12px);opacity:0;transition:all .3s;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:var(--success);color:#111}
+.toast.error{background:var(--danger);color:#fff}
+.toast.info{background:var(--info);color:#fff}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">M</div><span>管理后台</span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="ngl">概览</div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      工作台
+    </div>
+    <div class="ngl">系统管理</div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      用户管理
+    </div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      角色管理
+    </div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+      菜单管理
+    </div>
+    <div class="ni active" id="navDept" onclick="goPage('dept')">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      部门管理
+    </div>
+    <div class="ni" id="navPost" onclick="goPage('post')">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      岗位管理
+    </div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      字典管理
+    </div>
+    <div class="ngl">系统监控</div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      操作日志
+    </div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      服务监控
+    </div>
+    <div class="ngl">系统工具</div>
+    <div class="ni" onclick="goPage(null)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      系统配置
+    </div>
+  </nav>
+</aside>
+
+<div class="main">
+  <header class="hdr">
+    <div class="breadcrumb">
+      <span>系统管理</span><span class="sep">/</span><span class="cur" id="bcTitle">部门管理</span>
+    </div>
+    <div class="hdr-r">
+      <button class="hdr-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+      <button class="hdr-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+      <div class="av">管</div>
+    </div>
+  </header>
+
+  <!-- ════════ Department Page ════════ -->
+  <div class="page-wrap active" id="pageDept">
+    <div class="layout">
+      <div class="dept-left">
+        <div class="lp-h">
+          <div class="lp-tr">
+            <div class="lp-tl">部门列表 <span class="ct" id="deptCount">0</span></div>
+            <button class="btn btn-p btn-sm" onclick="deptAddRoot()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新增
+            </button>
+          </div>
+          <div class="lp-s">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="deptSearch" placeholder="搜索部门名称..." oninput="renderDeptTree()">
+          </div>
+        </div>
+        <div class="dept-tree" id="deptTree"></div>
+      </div>
+      <div class="dept-right" id="deptRight">
+        <div class="empty-state" id="deptEmpty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          <p>请从左侧选择一个部门</p>
+        </div>
+        <div id="deptForm" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+          <div class="dept-detail" id="deptDetail"></div>
+          <div class="dept-footer">
+            <button class="btn btn-d" onclick="deptDelete()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              删除
+            </button>
+            <button class="btn" onclick="deptReset()">重置</button>
+            <button class="btn btn-p" onclick="deptSave()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              保存
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ Post Page ════════ -->
+  <div class="page-wrap" id="pagePost">
+    <div class="post-wrap">
+      <div class="ph">
+        <div>
+          <div class="ph-title">岗位管理</div>
+          <div class="ph-sub">管理系统岗位及其职责信息</div>
+        </div>
+      </div>
+      <div class="stat-row" id="postStats"></div>
+      <div class="toolbar">
+        <div class="sbox">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="postSearch" placeholder="搜索岗位名称..." oninput="filterPosts()">
+        </div>
+        <select class="f-select-sm" id="postStatusFilter" onchange="filterPosts()">
+          <option value="">全部状态</option>
+          <option value="active">启用</option>
+          <option value="disabled">停用</option>
+        </select>
+        <div class="tb-spacer"></div>
+        <button class="btn" onclick="resetPostFilters()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          重置
+        </button>
+        <button class="btn btn-p" onclick="openPostModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          新增岗位
+        </button>
+      </div>
+      <div class="tbl-card">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:50px">#</th>
+              <th>岗位名称</th>
+              <th>岗位编码</th>
+              <th style="width:60px">排序</th>
+              <th style="width:84px">状态</th>
+              <th>创建时间</th>
+              <th style="width:120px">操作</th>
+            </tr>
+          </thead>
+          <tbody id="postBody"></tbody>
+        </table>
+        <div class="pager" id="postPager"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Post Modal -->
+<div class="mo" id="postModal">
+  <div class="modal">
+    <div class="mh">
+      <div class="mt" id="postModalTitle">新增岗位</div>
+      <button class="mc" onclick="closeMo('postModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mb">
+      <div class="frow2">
+        <div class="ffield">
+          <label class="flbl"><span class="req">*</span>岗位名称</label>
+          <input class="f-input" id="pfName" placeholder="请输入岗位名称">
+        </div>
+        <div class="ffield">
+          <label class="flbl"><span class="req">*</span>岗位编码</label>
+          <input class="f-input" id="pfCode" placeholder="如: ceo" style="font-family:'JetBrains Mono',monospace;font-size:12px">
+        </div>
+      </div>
+      <div class="frow2">
+        <div class="ffield">
+          <label class="flbl">排序号</label>
+          <input class="f-input" id="pfSort" type="number" value="0">
+        </div>
+        <div class="ffield">
+          <label class="flbl">状态</label>
+          <div style="display:flex;align-items:center;gap:10px;padding-top:4px">
+            <div class="toggle-track on" id="pfStatus" onclick="this.classList.toggle('on')"></div>
+            <span style="font-size:12.5px;color:var(--text-secondary)">启用</span>
+          </div>
+        </div>
+      </div>
+      <div class="ffield">
+        <label class="flbl">备注</label>
+        <textarea class="f-input" id="pfRemark" placeholder="请输入备注信息"></textarea>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn" onclick="closeMo('postModal')">取消</button>
+      <button class="btn btn-p" onclick="submitPost()">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- Dept Add Sub Modal -->
+<div class="mo" id="deptAddModal">
+  <div class="modal">
+    <div class="mh">
+      <div class="mt">新增子部门</div>
+      <button class="mc" onclick="closeMo('deptAddModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mb">
+      <div class="ffield">
+        <label class="flbl"><span class="req">*</span>部门名称</label>
+        <input class="f-input" id="daName" placeholder="请输入部门名称">
+      </div>
+      <div class="frow2">
+        <div class="ffield">
+          <label class="flbl">负责人</label>
+          <input class="f-input" id="daLeader" placeholder="请输入负责人">
+        </div>
+        <div class="ffield">
+          <label class="flbl">联系电话</label>
+          <input class="f-input" id="daPhone" placeholder="请输入联系电话">
+        </div>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn" onclick="closeMo('deptAddModal')">取消</button>
+      <button class="btn btn-p" onclick="confirmDeptAdd()">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Helpers ──
+function showToast(m,t='success'){
+  const el=document.getElementById('toast');el.textContent=m;el.className='toast '+t;
+  requestAnimationFrame(()=>el.classList.add('show'));
+  clearTimeout(el._tt);el._tt=setTimeout(()=>el.classList.remove('show'),2400);
+}
+function openMo(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
+function closeMo(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
+
+// ── Page Navigation ──
+let currentPage = 'dept';
+function goPage(p) {
+  if(!p) return;
+  currentPage = p;
+  document.getElementById('pageDept').classList.toggle('active', p==='dept');
+  document.getElementById('pagePost').classList.toggle('active', p==='post');
+  document.getElementById('navDept').classList.toggle('active', p==='dept');
+  document.getElementById('navPost').classList.toggle('active', p==='post');
+  document.getElementById('bcTitle').textContent = p==='dept' ? '部门管理' : '岗位管理';
+}
+
+// ═══════════════════════════════════
+// Department Management
+// ═══════════════════════════════════
+let depts = [
+  { id:1, name:'小米科技', leader:'雷军', phone:'010-12345678', email:'admin@mi.com', sort:1, status:true, remark:'总公司',
+    children:[
+      { id:11, name:'技术研发部', leader:'张三', phone:'010-23456789', email:'tech@mi.com', sort:1, status:true, remark:'负责核心产品研发',
+        children:[
+          { id:111, name:'前端开发组', leader:'李四', phone:'', email:'', sort:1, status:true, remark:'', children:[] },
+          { id:112, name:'后端开发组', leader:'王五', phone:'', email:'', sort:2, status:true, remark:'', children:[] },
+          { id:113, name:'AI算法组', leader:'赵六', phone:'', email:'', sort:3, status:true, remark:'', children:[] },
+        ]
+      },
+      { id:12, name:'产品设计部', leader:'孙七', phone:'010-34567890', email:'product@mi.com', sort:2, status:true, remark:'负责产品规划与设计',
+        children:[
+          { id:121, name:'产品组', leader:'', phone:'', email:'', sort:1, status:true, remark:'', children:[] },
+          { id:122, name:'UI设计组', leader:'', phone:'', email:'', sort:2, status:true, remark:'', children:[] },
+        ]
+      },
+      { id:13, name:'市场营销部', leader:'周八', phone:'', email:'', sort:3, status:true, remark:'负责品牌推广与市场运营', children:[] },
+      { id:14, name:'人力资源部', leader:'吴九', phone:'', email:'', sort:4, status:true, remark:'负责人员招聘与管理', children:[] },
+      { id:15, name:'财务管理部', leader:'郑十', phone:'', email:'', sort:5, status:true, remark:'负责公司财务事务', children:[] },
+      { id:16, name:'运维安全部', leader:'', phone:'', email:'', sort:6, status:false, remark:'已暂停运营', children:[] },
+    ]
+  }
+];
+
+let selectedDeptId = null;
+let addSubParentId = null;
+
+function flattenDepts(arr) {
+  let r = [];
+  arr.forEach(n => { r.push(n); if(n.children) r = r.concat(flattenDepts(n.children)); });
+  return r;
+}
+
+function findDept(id, arr) {
+  for(const n of arr) {
+    if(n.id === id) return n;
+    if(n.children) { const f = findDept(id, n.children); if(f) return f; }
+  }
+  return null;
+}
+
+function deptCountAll() { return flattenDepts(depts).length; }
+
+function renderDeptTree() {
+  const q = (document.getElementById('deptSearch').value || '').toLowerCase();
+  const ct = document.getElementById('deptTree');
+  ct.innerHTML = '';
+  depts.forEach(n => ct.appendChild(buildDeptNode(n, 0, q)));
+  document.getElementById('deptCount').textContent = deptCountAll();
+}
+
+function buildDeptNode(node, depth, q) {
+  const hasC = node.children && node.children.length > 0;
+  const matchSelf = !q || node.name.toLowerCase().includes(q);
+  const matchChild = q && hasC && flattenDepts(node.children).some(c => c.name.toLowerCase().includes(q));
+  if(q && !matchSelf && !matchChild) return document.createElement('span');
+
+  const wrap = document.createElement('div');
+  wrap.className = 'd-node';
+  const row = document.createElement('div');
+  row.className = 'd-row' + (node.id === selectedDeptId ? ' selected' : '');
+
+  const toggle = document.createElement('span');
+  toggle.className = 'd-toggle' + (node.expanded ? ' open' : '') + (!hasC ? ' hide' : '');
+  toggle.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"/></svg>';
+  toggle.onclick = e => { e.stopPropagation(); node.expanded = !node.expanded; renderDeptTree(); };
+
+  const ic = document.createElement('span');
+  ic.className = 'd-ic ' + (hasC ? 'has-child' : 'leaf');
+  ic.textContent = node.name.charAt(0);
+
+  const name = document.createElement('span');
+  name.className = 'd-name';
+  name.textContent = node.name;
+
+  if(hasC) {
+    const tag = document.createElement('span');
+    tag.className = 'd-tag';
+    tag.textContent = flattenDepts(node.children).length;
+    row.appendChild(toggle); row.appendChild(ic); row.appendChild(name); row.appendChild(tag);
+  } else {
+    row.appendChild(toggle); row.appendChild(ic); row.appendChild(name);
+  }
+
+  if(!node.status) {
+    const off = document.createElement('span');
+    off.style.cssText = 'font-size:10px;padding:1px 5px;border-radius:4px;background:var(--danger-dim);color:var(--danger);font-weight:500;flex-shrink:0';
+    off.textContent = '停用';
+    row.appendChild(off);
+  }
+
+  const acts = document.createElement('span');
+  acts.className = 'd-acts';
+  acts.innerHTML = `
+    <button class="d-ab" title="新增子部门" onclick="event.stopPropagation();deptAddSub(${node.id})">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="d-ab del" title="删除" onclick="event.stopPropagation();deptDeleteNode(${node.id})">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>`;
+  row.appendChild(acts);
+
+  row.onclick = () => selectDept(node.id);
+  wrap.appendChild(row);
+
+  if(hasC) {
+    const childW = document.createElement('div');
+    childW.className = 'd-children' + (node.expanded ? '' : ' collapsed');
+    node.children.forEach(c => childW.appendChild(buildDeptNode(c, depth + 1, q)));
+    wrap.appendChild(childW);
+  }
+  return wrap;
+}
+
+function selectDept(id) {
+  selectedDeptId = id;
+  renderDeptTree();
+  showDeptForm();
+}
+
+function showDeptForm() {
+  const node = findDept(selectedDeptId, depts);
+  if(!node) {
+    document.getElementById('deptEmpty').style.display = '';
+    document.getElementById('deptForm').style.display = 'none';
+    return;
+  }
+  document.getElementById('deptEmpty').style.display = 'none';
+  const form = document.getElementById('deptForm');
+  form.style.display = 'flex';
+
+  // Find parent
+  let parentName = '顶级部门';
+  function findParent(arr, target) {
+    for(const n of arr) {
+      if(n.children && n.children.some(c => c.id === target)) return n;
+      if(n.children) { const r = findParent(n.children, target); if(r) return r; }
+    }
+    return null;
+  }
+  const parent = findParent(depts, node.id);
+  if(parent) parentName = parent.name;
+
+  const subDepts = node.children || [];
+
+  document.getElementById('deptDetail').innerHTML = `
+    <div class="fs">
+      <div class="fs-t">基本信息</div>
+      <div class="fg">
+        <div class="fi">
+          <label class="fl"><span class="req">*</span>部门名称</label>
+          <input class="f-input" id="dfName" value="${node.name}">
+        </div>
+        <div class="fi">
+          <label class="fl">上级部门</label>
+          <input class="f-input" value="${parentName}" disabled style="opacity:.6">
+        </div>
+        <div class="fi">
+          <label class="fl">负责人</label>
+          <input class="f-input" id="dfLeader" value="${node.leader || ''}" placeholder="请输入负责人">
+        </div>
+        <div class="fi">
+          <label class="fl">联系电话</label>
+          <input class="f-input" id="dfPhone" value="${node.phone || ''}" placeholder="请输入联系电话">
+        </div>
+        <div class="fi">
+          <label class="fl">邮箱</label>
+          <input class="f-input" id="dfEmail" value="${node.email || ''}" placeholder="请输入邮箱地址">
+        </div>
+        <div class="fi">
+          <label class="fl">排序号</label>
+          <input class="f-input" id="dfSort" type="number" value="${node.sort}">
+        </div>
+      </div>
+    </div>
+    <div class="fs">
+      <div class="fs-t">状态信息</div>
+      <div class="fg">
+        <div class="fi">
+          <label class="fl">部门状态</label>
+          <div class="radio-group">
+            <div class="radio-pill ${node.status?'sel':''}" onclick="deptToggleStatus(this,true)">
+              <span class="rd"></span>启用
+            </div>
+            <div class="radio-pill ${!node.status?'sel':''}" onclick="deptToggleStatus(this,false)">
+              <span class="rd"></span>停用
+            </div>
+          </div>
+        </div>
+        <div class="fi">
+          <label class="fl">备注</label>
+          <textarea class="f-input" id="dfRemark" placeholder="请输入备注">${node.remark||''}</textarea>
+        </div>
+      </div>
+    </div>
+    ${subDepts.length ? `
+    <div class="fs">
+      <div class="fs-t">下级部门 (${subDepts.length})</div>
+      <table class="sub-table">
+        <thead><tr><th>部门名称</th><th>负责人</th><th>状态</th><th>排序</th></tr></thead>
+        <tbody>
+          ${subDepts.map(s => `
+            <tr>
+              <td style="font-weight:500;color:var(--text)">${s.name}</td>
+              <td>${s.leader || '—'}</td>
+              <td><span class="badge ${s.status?'on':'off'}"><span class="badge-dot"></span>${s.status?'启用':'停用'}</span></td>
+              <td><span class="sort-v">${s.sort}</span></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>` : ''}
+  `;
+}
+
+let deptStatusVal = true;
+function deptToggleStatus(el, val) {
+  deptStatusVal = val;
+  el.parentElement.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function deptAddRoot() {
+  addSubParentId = 0;
+  document.getElementById('daName').value = '';
+  document.getElementById('daLeader').value = '';
+  document.getElementById('daPhone').value = '';
+  openMo('deptAddModal');
+}
+
+function deptAddSub(pid) {
+  addSubParentId = pid;
+  document.getElementById('daName').value = '';
+  document.getElementById('daLeader').value = '';
+  document.getElementById('daPhone').value = '';
+  openMo('deptAddModal');
+}
+
+function confirmDeptAdd() {
+  const name = document.getElementById('daName').value.trim();
+  if(!name) { showToast('请输入部门名称', 'error'); return; }
+  const leader = document.getElementById('daLeader').value.trim();
+  const phone = document.getElementById('daPhone').value.trim();
+  const nid = Date.now();
+  const newDept = { id:nid, name, leader, phone, email:'', sort:1, status:true, remark:'', children:[], expanded:true };
+
+  if(addSubParentId === 0) {
+    depts.push(newDept);
+  } else {
+    const parent = findDept(addSubParentId, depts);
+    if(parent) { if(!parent.children) parent.children = []; parent.children.push(newDept); parent.expanded = true; }
+  }
+  closeMo('deptAddModal');
+  selectedDeptId = nid;
+  renderDeptTree();
+  showDeptForm();
+  showToast('部门添加成功');
+}
+
+function deptDeleteNode(id) {
+  if(id === 1) { showToast('根节点不可删除', 'error'); return; }
+  const node = findDept(id, depts);
+  if(!node) return;
+  const subCount = flattenDepts(node.children || []).length;
+  const msg = subCount > 0 ? `「${node.name}」包含 ${subCount} 个子部门，确定删除？` : `确定删除部门「${node.name}」？`;
+  if(!confirm(msg)) return;
+
+  function remove(arr) {
+    for(let i = 0; i < arr.length; i++) {
+      if(arr[i].id === id) { arr.splice(i, 1); return true; }
+      if(arr[i].children && remove(arr[i].children)) return true;
+    }
+    return false;
+  }
+  remove(depts);
+  if(selectedDeptId === id) { selectedDeptId = null; document.getElementById('deptEmpty').style.display = ''; document.getElementById('deptForm').style.display = 'none'; }
+  renderDeptTree();
+  showToast('部门已删除', 'info');
+}
+
+function deptDelete() { if(selectedDeptId) deptDeleteNode(selectedDeptId); }
+
+function deptSave() {
+  const node = findDept(selectedDeptId, depts);
+  if(!node) return;
+  const name = document.getElementById('dfName').value.trim();
+  if(!name) { showToast('部门名称不能为空', 'error'); return; }
+  node.name = name;
+  node.leader = document.getElementById('dfLeader').value.trim();
+  node.phone = document.getElementById('dfPhone').value.trim();
+  node.email = document.getElementById('dfEmail').value.trim();
+  node.sort = parseInt(document.getElementById('dfSort').value) || 0;
+  node.remark = document.getElementById('dfRemark').value.trim();
+  node.status = deptStatusVal;
+  renderDeptTree();
+  showDeptForm();
+  showToast('保存成功');
+}
+
+function deptReset() { if(selectedDeptId) { const n = findDept(selectedDeptId, depts); if(n) deptStatusVal = n.status; showDeptForm(); } }
+
+// ═══════════════════════════════════
+// Post Management
+// ═══════════════════════════════════
+let posts = [
+  {id:1, name:'首席执行官', code:'ceo', sort:1, status:'active', remark:'公司最高管理者', created:'2024-01-01 08:00'},
+  {id:2, name:'首席技术官', code:'cto', sort:2, status:'active', remark:'负责技术战略规划', created:'2024-01-01 08:00'},
+  {id:3, name:'首席产品官', code:'cpo', sort:3, status:'active', remark:'负责产品战略与规划', created:'2024-01-15 10:30'},
+  {id:4, name:'技术总监', code:'tech_director', sort:4, status:'active', remark:'管理技术团队', created:'2024-02-10 14:20'},
+  {id:5, name:'产品经理', code:'pm', sort:5, status:'active', remark:'负责产品设计与迭代', created:'2024-02-10 14:25'},
+  {id:6, name:'高级前端工程师', code:'senior_fe', sort:6, status:'active', remark:'前端技术骨干', created:'2024-03-05 09:10'},
+  {id:7, name:'高级后端工程师', code:'senior_be', sort:7, status:'active', remark:'后端技术骨干', created:'2024-03-05 09:15'},
+  {id:8, name:'UI设计师', code:'ui_designer', sort:8, status:'active', remark:'负责界面视觉设计', created:'2024-03-20 11:00'},
+  {id:9, name:'测试工程师', code:'qa_engineer', sort:9, status:'disabled', remark:'暂时冻结招聘', created:'2024-04-01 16:30'},
+  {id:10, name:'运维工程师', code:'devops', sort:10, status:'disabled', remark:'已合并至后端组', created:'2024-04-15 08:45'},
+];
+
+let postEditId = null;
+
+function renderPostStats() {
+  const total = posts.length;
+  const active = posts.filter(p => p.status === 'active').length;
+  const disabled = total - active;
+  document.getElementById('postStats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-ic blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div><div class="stat-v">${total}</div><div class="stat-l">岗位总数</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <div><div class="stat-v">${active}</div><div class="stat-l">已启用</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+      <div><div class="stat-v">${disabled}</div><div class="stat-l">已停用</div></div>
+    </div>
+  `;
+}
+
+function filterPosts() {
+  const q = (document.getElementById('postSearch').value || '').toLowerCase();
+  const st = document.getElementById('postStatusFilter').value;
+  let filtered = posts.filter(p => {
+    if(q && !p.name.toLowerCase().includes(q) && !p.code.toLowerCase().includes(q)) return false;
+    if(st && p.status !== st) return false;
+    return true;
+  });
+  renderPostTable(filtered);
+}
+
+function resetPostFilters() {
+  document.getElementById('postSearch').value = '';
+  document.getElementById('postStatusFilter').value = '';
+  filterPosts();
+}
+
+function renderPostTable(data) {
+  const tbody = document.getElementById('postBody');
+  if(!data.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:48px;color:var(--text-muted)">暂无匹配数据</td></tr>';
+    document.getElementById('postPager').innerHTML = '<div class="pager-info">共 <b>0</b> 条</div><div></div>';
+    return;
+  }
+  tbody.innerHTML = data.map((p, i) => `
+    <tr>
+      <td><span class="sort-v">${p.id}</span></td>
+      <td><span class="row-name">${p.name}</span></td>
+      <td><span class="code">${p.code}</span></td>
+      <td><span class="sort-v">${p.sort}</span></td>
+      <td><span class="badge ${p.status}"><span class="badge-dot"></span>${p.status==='active'?'启用':'停用'}</span></td>
+      <td><span class="time-v">${p.created}</span></td>
+      <td>
+        <div class="actions">
+          <button class="act e" onclick="editPost(${p.id})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="act d" onclick="deletePost(${p.id})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+
+  document.getElementById('postPager').innerHTML = `
+    <div class="pager-info">共 <b>${data.length}</b> 条数据</div>
+    <div class="pager-btns">
+      <button class="pg" disabled>&lt;</button>
+      <button class="pg act">1</button>
+      ${data.length > 10 ? '<button class="pg">2</button>' : ''}
+      <button class="pg" ${data.length <= 10 ? 'disabled' : ''}>&gt;</button>
+    </div>
+  `;
+}
+
+function openPostModal() {
+  postEditId = null;
+  document.getElementById('postModalTitle').textContent = '新增岗位';
+  document.getElementById('pfName').value = '';
+  document.getElementById('pfCode').value = '';
+  document.getElementById('pfSort').value = '0';
+  document.getElementById('pfStatus').classList.add('on');
+  document.getElementById('pfRemark').value = '';
+  openMo('postModal');
+}
+
+function editPost(id) {
+  const p = posts.find(x => x.id === id);
+  if(!p) return;
+  postEditId = id;
+  document.getElementById('postModalTitle').textContent = '编辑岗位';
+  document.getElementById('pfName').value = p.name;
+  document.getElementById('pfCode').value = p.code;
+  document.getElementById('pfSort').value = p.sort;
+  document.getElementById('pfStatus').classList.toggle('on', p.status === 'active');
+  document.getElementById('pfRemark').value = p.remark || '';
+  openMo('postModal');
+}
+
+function submitPost() {
+  const name = document.getElementById('pfName').value.trim();
+  const code = document.getElementById('pfCode').value.trim();
+  if(!name) { showToast('请输入岗位名称', 'error'); return; }
+  if(!code) { showToast('请输入岗位编码', 'error'); return; }
+  const sort = parseInt(document.getElementById('pfSort').value) || 0;
+  const status = document.getElementById('pfStatus').classList.contains('on') ? 'active' : 'disabled';
+  const remark = document.getElementById('pfRemark').value.trim();
+
+  if(postEditId) {
+    const p = posts.find(x => x.id === postEditId);
+    if(p) Object.assign(p, { name, code, sort, status, remark });
+    showToast('岗位修改成功');
+  } else {
+    const now = new Date();
+    const ts = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    posts.push({ id: Math.max(...posts.map(p=>p.id))+1, name, code, sort, status, remark, created: ts });
+    showToast('岗位添加成功');
+  }
+  closeMo('postModal');
+  renderPostStats();
+  filterPosts();
+}
+
+function deletePost(id) {
+  const p = posts.find(x => x.id === id);
+  if(!p || !confirm(`确定删除岗位「${p.name}」？`)) return;
+  posts = posts.filter(x => x.id !== id);
+  renderPostStats();
+  filterPosts();
+  showToast('岗位已删除', 'info');
+}
+
+// ── Init ──
+renderDeptTree();
+renderPostStats();
+filterPosts();
+selectDept(1);
+</script>
+</body>
+</html>
